@@ -3,7 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_graph"
-    app:startDestination="@id/productListFragment">
+    app:startDestination="@id/mainMenuFragment">
+
+    <fragment
+        android:id="@+id/mainMenuFragment"
+        android:name="com.galego.fabricio.vendapp.ui.mainmenu.MainMenuFragment"
+        android:label="@string/mainmenu_title"
+        tools:layout="@layout/fragment_main_menu">
+        <action
+            android:id="@+id/action_mainMenuFragment_to_productListFragment"
+            app:destination="@id/productListFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/productListFragment"
@@ -19,12 +29,12 @@
         android:id="@+id/productFragment"
         android:name="com.galego.fabricio.vendapp.ui.product.ProductFragment"
         android:label="@string/product_title"
-        tools:layout="@layout/product_fragment" >
+        tools:layout="@layout/product_fragment">
         <argument
             android:name="product"
+            android:defaultValue="@null"
             app:argType="com.galego.fabricio.vendapp.data.db.entity.ProductEntity"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            app:nullable="true" />
     </fragment>
 
 </navigation>

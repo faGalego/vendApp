@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">vendApp</string>
 
+    <!-- Main Menu Fragment -->
+    <string name="mainmenu_title">@string/app_name</string>
+    <string name="mainmenu_products_button">Products</string>
+    <string name="mainmenu_customers_button">Customers</string>
+    <string name="mainmenu_orders_button">Orders</string>
+
     <!-- Product Fragment -->
     <string name="product_title">Product</string>
     <string name="product_name_hint">Name</string>
