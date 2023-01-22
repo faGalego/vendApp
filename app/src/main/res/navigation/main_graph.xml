@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/productListFragment">
+
+    <fragment
+        android:id="@+id/productListFragment"
+        android:name="com.galego.fabricio.vendapp.ui.productlist.ProductListFragment"
+        android:label="@string/productlist_title"
+        tools:layout="@layout/product_list_fragment">
+        <action
+            android:id="@+id/action_productListFragment_to_productFragment"
+            app:destination="@id/productFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/productFragment"
+        android:name="com.galego.fabricio.vendapp.ui.product.ProductFragment"
+        android:label="@string/product_title"
+        tools:layout="@layout/product_fragment" >
+        <argument
+            android:name="product"
+            app:argType="com.galego.fabricio.vendapp.data.db.entity.ProductEntity"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
+
+</navigation>
