@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.galego.fabricio.vendapp.R
+import com.galego.fabricio.vendapp.data.common.Converters
 import com.galego.fabricio.vendapp.data.db.entity.ProductEntity
 
 class ProductListAdapter(
@@ -35,7 +36,7 @@ class ProductListAdapter(
 
         fun bind(product: ProductEntity) {
             textViewName.text = product.name
-            textViewPrice.text = product.price.toString()
+            textViewPrice.text = Converters.doubleToMoneyString(product.price)
             itemView.setOnClickListener {
                 onItemClick?.invoke(product)
             }

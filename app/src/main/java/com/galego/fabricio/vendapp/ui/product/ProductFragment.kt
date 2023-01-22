@@ -12,6 +12,8 @@ import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.galego.fabricio.vendapp.R
+import com.galego.fabricio.vendapp.data.common.Converters
+import com.galego.fabricio.vendapp.data.common.MoneyTextWatcher
 import com.galego.fabricio.vendapp.data.db.AppDatabase
 import com.galego.fabricio.vendapp.databinding.ProductFragmentBinding
 import com.galego.fabricio.vendapp.repository.ProductRepository
@@ -56,7 +58,7 @@ class ProductFragment : Fragment() {
         binding.fragmentProductPriceEditText.setText("0")
         args.product?.let { product ->
             binding.fragmentProductNameEditText.setText(product.name)
-            binding.fragmentProductPriceEditText.setText(product.price.toString())
+            binding.fragmentProductPriceEditText.setText(Converters.doubleToMoneyString(product.price))
         }
     }
 
@@ -83,9 +85,14 @@ class ProductFragment : Fragment() {
     }
 
     private fun setListeners() {
+
+        binding.fragmentProductPriceEditText.addTextChangedListener(MoneyTextWatcher(binding.fragmentProductPriceEditText))
+
         binding.fragmentProductSaveButton.setOnClickListener {
             val name = binding.fragmentProductNameEditText.text.toString().trim()
-            val price = binding.fragmentProductPriceEditText.text.toString().trim().toDouble()
+            val price = Converters.moneyStringToDouble(
+                binding.fragmentProductPriceEditText.text.toString().trim()
+            )
 
             viewModel.insertOrUpdateProduct(name, price, args.product?.id ?: 0)
         }
