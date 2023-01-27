@@ -55,7 +55,7 @@ class ProductFragment : Fragment() {
     }
 
     private fun setArgs() {
-        binding.fragmentProductPriceEditText.setText("0")
+        binding.fragmentProductPriceEditText.setText(Converters.doubleToMoneyString(0.0))
         args.product?.let { product ->
             binding.fragmentProductNameEditText.setText(product.name)
             binding.fragmentProductPriceEditText.setText(Converters.doubleToMoneyString(product.price))
