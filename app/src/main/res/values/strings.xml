@@ -7,6 +7,9 @@
     <string name="mainmenu_customers_button">Customers</string>
     <string name="mainmenu_orders_button">Orders</string>
 
+    <!-- Product List Fragment -->
+    <string name="productlist_title">Products</string>
+
     <!-- Product Fragment -->
     <string name="product_title">Product</string>
     <string name="product_name_hint">Name</string>
@@ -17,7 +20,18 @@
     <string name="product_error_to_insert">There was an error when inserting product</string>
     <string name="product_error_to_update">There was an error when updating product</string>
 
-    <!-- Product List Fragment -->
-    <string name="productlist_title">Products</string>
+    <!-- Customer List Fragment -->
+    <string name="customerlist_title">Customers</string>
+
+    <!-- Customer Fragment -->
+    <string name="customer_title">Customer</string>
+    <string name="customer_name_hint">Name</string>
+    <string name="customer_phone_hint">Phone</string>
+    <string name="customer_save_button">Save</string>
+    <string name="customer_inserted_successfully">Customer was successfully inserted</string>
+    <string name="customer_updated_successfully">Customer was successfully updated</string>
+    <string name="customer_error_to_insert">There was an error when inserting customer</string>
+    <string name="customer_error_to_update">There was an error when updating customer</string>
+
 
 </resources>

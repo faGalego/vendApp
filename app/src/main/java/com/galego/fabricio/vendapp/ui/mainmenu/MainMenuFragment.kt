@@ -31,6 +31,9 @@ class MainMenuFragment : Fragment() {
         binding.fragmentMainmenuProductsButton.setOnClickListener {
             findNavController().navigate(R.id.action_mainMenuFragment_to_productListFragment)
         }
+        binding.fragmentMainmenuCustomersButton.setOnClickListener {
+            findNavController().navigate(R.id.action_mainMenuFragment_to_customerListFragment)
+        }
     }
 
     override fun onDestroyView() {

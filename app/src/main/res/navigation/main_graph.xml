@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_mainMenuFragment_to_productListFragment"
             app:destination="@id/productListFragment" />
+        <action
+            android:id="@+id/action_mainMenuFragment_to_customerListFragment"
+            app:destination="@id/customerListFragment" />
     </fragment>
 
     <fragment
@@ -35,6 +38,28 @@
             android:defaultValue="@null"
             app:argType="com.galego.fabricio.vendapp.data.db.entity.ProductEntity"
             app:nullable="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/customerListFragment"
+        android:name="com.galego.fabricio.vendapp.ui.customerlist.CustomerListFragment"
+        android:label="@string/customerlist_title"
+        tools:layout="@layout/customer_list_fragment" >
+        <action
+            android:id="@+id/action_customerListFragment_to_customerFragment"
+            app:destination="@id/customerFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/customerFragment"
+        android:name="com.galego.fabricio.vendapp.ui.customer.CustomerFragment"
+        android:label="@string/customer_title"
+        tools:layout="@layout/customer_fragment" >
+        <argument
+            android:name="customer"
+            app:argType="com.galego.fabricio.vendapp.data.db.entity.CustomerEntity"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
 
 </navigation>
