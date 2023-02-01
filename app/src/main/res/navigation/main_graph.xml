@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_mainMenuFragment_to_customerListFragment"
             app:destination="@id/customerListFragment" />
+        <action
+            android:id="@+id/action_mainMenuFragment_to_orderListFragment"
+            app:destination="@id/orderListFragment" />
     </fragment>
 
     <fragment
@@ -44,7 +47,7 @@
         android:id="@+id/customerListFragment"
         android:name="com.galego.fabricio.vendapp.ui.customerlist.CustomerListFragment"
         android:label="@string/customerlist_title"
-        tools:layout="@layout/customer_list_fragment" >
+        tools:layout="@layout/customer_list_fragment">
         <action
             android:id="@+id/action_customerListFragment_to_customerFragment"
             app:destination="@id/customerFragment" />
@@ -54,12 +57,34 @@
         android:id="@+id/customerFragment"
         android:name="com.galego.fabricio.vendapp.ui.customer.CustomerFragment"
         android:label="@string/customer_title"
-        tools:layout="@layout/customer_fragment" >
+        tools:layout="@layout/customer_fragment">
         <argument
             android:name="customer"
+            android:defaultValue="@null"
             app:argType="com.galego.fabricio.vendapp.data.db.entity.CustomerEntity"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            app:nullable="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/orderListFragment"
+        android:name="com.galego.fabricio.vendapp.ui.orderlist.OrderListFragment"
+        android:label="@string/orderlist_title"
+        tools:layout="@layout/order_list_fragment">
+        <action
+            android:id="@+id/action_orderListFragment_to_orderFragment"
+            app:destination="@id/orderFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/orderFragment"
+        android:name="com.galego.fabricio.vendapp.ui.order.OrderFragment"
+        android:label="@string/order_title"
+        tools:layout="@layout/order_fragment">
+        <argument
+            android:name="order"
+            android:defaultValue="@null"
+            app:argType="com.galego.fabricio.vendapp.data.db.entity.OrderEntity"
+            app:nullable="true" />
     </fragment>
 
 </navigation>

@@ -12,4 +12,10 @@ class CustomerEntity(
     val id: Long = 0,
     val name: String,
     val phone: String
-) : Parcelable
+) : Parcelable {
+
+    override fun toString(): String {
+        return name
+    }
+
+}

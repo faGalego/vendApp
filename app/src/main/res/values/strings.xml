@@ -33,5 +33,18 @@
     <string name="customer_error_to_insert">There was an error when inserting customer</string>
     <string name="customer_error_to_update">There was an error when updating customer</string>
 
+    <!-- Order List Fragment -->
+    <string name="orderlist_title">Orders</string>
+
+    <!-- Order Fragment -->
+    <string name="order_title">Order</string>
+    <string name="order_customer_hint">Customer</string>
+    <string name="order_total_hint">Total</string>
+    <string name="order_save_button">Save</string>
+    <string name="order_inserted_successfully">Order was successfully inserted</string>
+    <string name="order_updated_successfully">Order was successfully updated</string>
+    <string name="order_error_to_insert">There was an error when inserting order</string>
+    <string name="order_error_to_update">There was an error when updating order</string>
+
 
 </resources>
