@@ -13,7 +13,7 @@ class OrderRepositoryImpl(
     }
 
     override suspend fun updateOrder(id: Long, customerId: Long, total: Double) {
-        val order = OrderEntity(customerId = customerId, total = total)
+        val order = OrderEntity(id = id, customerId = customerId, total = total)
         orderDao.update(order)
     }
 

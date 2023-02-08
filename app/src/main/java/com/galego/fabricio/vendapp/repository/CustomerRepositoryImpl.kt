@@ -13,7 +13,7 @@ class CustomerRepositoryImpl(
     }
 
     override suspend fun updateCustomer(id: Long, name: String, phone: String) {
-        val customer = CustomerEntity(name = name, phone = phone)
+        val customer = CustomerEntity(id = id, name = name, phone = phone)
         customerDao.update(customer)
     }
 
