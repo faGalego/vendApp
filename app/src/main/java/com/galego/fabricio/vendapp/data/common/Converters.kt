@@ -1,8 +1,19 @@
 package com.galego.fabricio.vendapp.data.common
 
+import androidx.room.TypeConverter
 import java.text.NumberFormat
+import java.util.*
 
 class Converters {
+    @TypeConverter
+    fun fromTimestamp(value: Long?): Date? {
+        return value?.let { Date(it) }
+    }
+
+    @TypeConverter
+    fun dateToTimestamp(date: Date?): Long? {
+        return date?.time?.toLong()
+    }
 
     companion object {
 

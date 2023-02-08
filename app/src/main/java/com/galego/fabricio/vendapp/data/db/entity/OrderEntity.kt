@@ -6,6 +6,7 @@ import androidx.room.ForeignKey
 import androidx.room.ForeignKey.CASCADE
 import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
+import java.util.*
 
 @Parcelize
 @Entity(
@@ -22,5 +23,6 @@ data class OrderEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
     val customerId: Long,
-    val total: Double
+    val total: Double,
+    val createdAt: Date
 ) : Parcelable

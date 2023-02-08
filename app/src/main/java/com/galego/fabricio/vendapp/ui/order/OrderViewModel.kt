@@ -15,6 +15,7 @@ import com.galego.fabricio.vendapp.repository.OrderRepository
 import com.galego.fabricio.vendapp.repository.ProductRepository
 import kotlinx.coroutines.launch
 import java.lang.Exception
+import java.util.*
 
 class OrderViewModel(
     private val orderRepository: OrderRepository,
@@ -94,7 +95,12 @@ class OrderViewModel(
     private fun updateOrder(id: Long) =
         viewModelScope.launch {
             try {
-                orderRepository.updateOrder(id, _selectedCustomer!!.id, getOrderTotal())
+                orderRepository.updateOrder(
+                    id,
+                    _selectedCustomer!!.id,
+                    getOrderTotal(),
+                    Calendar.getInstance().time
+                )
                 insertOrUpdateProduct(id)
                 _orderStateEventData.value = OrderState.Updated
                 _orderMessageEventData.value = R.string.order_updated_successfully
@@ -107,7 +113,11 @@ class OrderViewModel(
     private fun insertOrder() =
         viewModelScope.launch {
             try {
-                val id = orderRepository.insertOrder(_selectedCustomer!!.id, getOrderTotal())
+                val id = orderRepository.insertOrder(
+                    _selectedCustomer!!.id,
+                    getOrderTotal(),
+                    Calendar.getInstance().time
+                )
                 if (id > 0) {
                     insertOrUpdateProduct(id)
                     _orderStateEventData.value = OrderState.Inserted
