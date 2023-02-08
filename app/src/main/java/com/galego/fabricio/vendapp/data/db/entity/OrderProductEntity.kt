@@ -26,10 +26,10 @@ import androidx.room.PrimaryKey
 data class OrderProductEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
-    val orderId: Long,
+    var orderId: Long = 0,
     val productId: Long,
-    val quantity: Long,
-    val price: Long,
-    val total: Long
+    val quantity: Int,
+    val price: Double,
+    val total: Double
 ) {
 }

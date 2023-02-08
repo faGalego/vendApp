@@ -1,23 +1,14 @@
 package com.galego.fabricio.vendapp.repository
 
+import com.galego.fabricio.vendapp.data.db.entity.OrderProductEntity
+
 interface OrderProductRepository {
 
-    suspend fun insert(
-        orderId: Long,
-        productId: Long,
-        quantity: Long,
-        price: Long,
-        total: Long
-    ): Long
+    suspend fun insert(vararg orderProductEntity: OrderProductEntity)
 
-    suspend fun update(
-        id: Long,
-        orderId: Long,
-        productId: Long,
-        quantity: Long,
-        price: Long,
-        total: Long
-    )
+    suspend fun update(vararg orderProductEntity: OrderProductEntity)
 
     suspend fun delete(id: Long)
+
+    suspend fun getByOrderId(orderId: Long): List<OrderProductEntity>
 }

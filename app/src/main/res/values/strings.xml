@@ -39,10 +39,14 @@
     <!-- Order Fragment -->
     <string name="order_title">Order</string>
     <string name="order_customer_hint">Customer</string>
+    <string name="order_product_hint">Product</string>
     <string name="order_total_hint">Total</string>
+    <string name="order_add_product_button">Add</string>
     <string name="order_save_button">Save</string>
     <string name="order_inserted_successfully">Order was successfully inserted</string>
     <string name="order_updated_successfully">Order was successfully updated</string>
+    <string name="order_error_no_items">Enter at least one product</string>
+    <string name="order_error_product_not_found">Product not found</string>
     <string name="order_error_to_insert">There was an error when inserting order</string>
     <string name="order_error_to_update">There was an error when updating order</string>
 

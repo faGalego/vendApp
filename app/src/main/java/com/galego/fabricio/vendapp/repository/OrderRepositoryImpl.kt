@@ -21,7 +21,5 @@ class OrderRepositoryImpl(
         orderDao.delete(id)
     }
 
-    override suspend fun getAllOrders(): List<OrderEntity> {
-        return orderDao.getAll()
-    }
+
 }

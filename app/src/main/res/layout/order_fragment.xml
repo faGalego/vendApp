@@ -11,7 +11,7 @@
         android:id="@+id/fragment_order_customer_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Customer"
+        android:text="@string/order_customer_hint"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -23,11 +23,49 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/fragment_order_customer_title" />
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/fragment_order_product_textInputLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="@string/order_product_hint"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragment_order_customer_spinner">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/fragment_order_product_editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/fragment_order_add_product_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/order_add_product_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragment_order_product_textInputLayout" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/fragment_order_products_recyclerview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@id/fragment_order_save_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragment_order_add_product_button"
+        tools:listitem="@layout/order_product_item" />
+
     <Button
         android:id="@+id/fragment_order_save_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="save"
+        android:text="@string/order_save_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

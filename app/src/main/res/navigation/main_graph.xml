@@ -83,7 +83,7 @@
         <argument
             android:name="order"
             android:defaultValue="@null"
-            app:argType="com.galego.fabricio.vendapp.data.db.entity.OrderEntity"
+            app:argType="com.galego.fabricio.vendapp.data.db.wrapper.OrderCustomer"
             app:nullable="true" />
     </fragment>
 

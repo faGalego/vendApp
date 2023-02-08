@@ -24,4 +24,8 @@ class ProductRepositoryImpl(
     override suspend fun getAllProducts(): List<ProductEntity> {
         return productDao.getAll()
     }
+
+    override suspend fun getProductById(id: Long): ProductEntity? {
+        return productDao.getById(id)
+    }
 }

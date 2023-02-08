@@ -11,4 +11,6 @@ interface ProductRepository {
     suspend fun deleteProduct(id: Long)
 
     suspend fun getAllProducts(): List<ProductEntity>
+
+    suspend fun getProductById(id: Long): ProductEntity?
 }

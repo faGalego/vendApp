@@ -17,7 +17,9 @@ import com.galego.fabricio.vendapp.R
 import com.galego.fabricio.vendapp.data.db.AppDatabase
 import com.galego.fabricio.vendapp.databinding.OrderFragmentBinding
 import com.galego.fabricio.vendapp.repository.CustomerRepositoryImpl
+import com.galego.fabricio.vendapp.repository.OrderProductRepositoryImpl
 import com.galego.fabricio.vendapp.repository.OrderRepositoryImpl
+import com.galego.fabricio.vendapp.repository.ProductRepositoryImpl
 
 class OrderFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
@@ -31,12 +33,21 @@ class OrderFragment : Fragment(), AdapterView.OnItemSelectedListener {
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
 
                 val orderDao = AppDatabase.getInstance(requireContext()).orderDao
+                val orderProductDao = AppDatabase.getInstance(requireContext()).orderProductDao
                 val customerDao = AppDatabase.getInstance(requireContext()).customerDao
+                val productDao = AppDatabase.getInstance(requireContext()).productDao
 
                 val orderRepository = OrderRepositoryImpl(orderDao)
+                val orderProductRepository = OrderProductRepositoryImpl(orderProductDao)
                 val customerRepository = CustomerRepositoryImpl(customerDao)
+                val productRepository = ProductRepositoryImpl(productDao)
 
-                return OrderViewModel(orderRepository, customerRepository) as T
+                return OrderViewModel(
+                    orderRepository,
+                    orderProductRepository,
+                    customerRepository,
+                    productRepository
+                ) as T
             }
         }
     }
@@ -51,24 +62,31 @@ class OrderFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setArgs()
         setObservers()
         setListeners()
-    }
-
-    private fun setArgs() {
-        args.order?.let { order ->
-//            binding.fragmentOrderCustomerSpinner.setText(order.name)
-        }
     }
 
     private fun setObservers() {
 
         viewModel.allCustomersEventData.observe(viewLifecycleOwner) { customers ->
-            val partnersAdapter =
+            val customersAdapter =
                 ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, customers)
-            partnersAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            binding.fragmentOrderCustomerSpinner.adapter = partnersAdapter
+            customersAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            binding.fragmentOrderCustomerSpinner.adapter = customersAdapter
+            args.order?.let { argsOrder ->
+                binding.fragmentOrderCustomerSpinner.setSelection(customers.indexOfFirst {
+                    it.id == argsOrder.customerId
+                })
+            }
+        }
+
+        viewModel.productsData.observe(viewLifecycleOwner) { products ->
+            val productsAdapter = OrderProductAdapter(products)
+            binding.fragmentOrderProductsRecyclerview.run {
+                setHasFixedSize(true)
+                adapter = productsAdapter
+            }
+
         }
 
         viewModel.orderStateEventData.observe(viewLifecycleOwner) { state ->
@@ -78,6 +96,7 @@ class OrderFragment : Fragment(), AdapterView.OnItemSelectedListener {
                     clearFields()
                     findNavController().popBackStack()
                 }
+                OrderViewModel.OrderState.TriedToInsertProduct -> clearFields()
             }
         }
 
@@ -88,22 +107,27 @@ class OrderFragment : Fragment(), AdapterView.OnItemSelectedListener {
     }
 
     private fun clearFields() {
-        //..
+        binding.fragmentOrderProductEditText.text?.clear()
     }
 
     private fun setListeners() {
 
         binding.fragmentOrderCustomerSpinner.onItemSelectedListener = this
 
+        binding.fragmentOrderAddProductButton.setOnClickListener {
+
+            viewModel.insertProduct(binding.fragmentOrderProductEditText.text.toString().toLong())
+        }
+
         binding.fragmentOrderSaveButton.setOnClickListener {
-            //pegar os campos dos componentes..
-            viewModel.insertOrUpdateOrder(99.9, args.order?.id ?: 0)
+            viewModel.insertOrUpdateOrder(args.order?.orderId ?: 0)
         }
     }
 
     override fun onResume() {
         super.onResume()
         viewModel.getAllCustomers()
+        viewModel.getProductsByOrderId(args.order?.orderId ?: 0)
     }
 
     override fun onDestroyView() {

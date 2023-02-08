@@ -5,16 +5,23 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.room.Index
 import com.galego.fabricio.vendapp.R
 import com.galego.fabricio.vendapp.data.db.entity.CustomerEntity
+import com.galego.fabricio.vendapp.data.db.entity.OrderProductEntity
+import com.galego.fabricio.vendapp.data.db.entity.ProductEntity
 import com.galego.fabricio.vendapp.repository.CustomerRepository
+import com.galego.fabricio.vendapp.repository.OrderProductRepository
 import com.galego.fabricio.vendapp.repository.OrderRepository
+import com.galego.fabricio.vendapp.repository.ProductRepository
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
 class OrderViewModel(
     private val orderRepository: OrderRepository,
-    private val customerRepository: CustomerRepository
+    private val orderProductRepository: OrderProductRepository,
+    private val customerRepository: CustomerRepository,
+    private val productRepository: ProductRepository
 ) : ViewModel() {
 
     private val _orderStateEventData = MutableLiveData<OrderState>()
@@ -23,10 +30,47 @@ class OrderViewModel(
     private val _orderMessageEventData = MutableLiveData<Int>()
     val orderMessageEventData: LiveData<Int> get() = _orderMessageEventData
 
+    private val _productsData = MutableLiveData<MutableList<OrderProductEntity>>()
+    val productsData: LiveData<MutableList<OrderProductEntity>> get() = _productsData
+
     private val _allCustomersEventData = MutableLiveData<List<CustomerEntity>>()
     val allCustomersEventData: LiveData<List<CustomerEntity>> get() = _allCustomersEventData
 
     private var _selectedCustomer: CustomerEntity? = null
+
+    fun getProductsByOrderId(orderId: Long) = viewModelScope.launch {
+        if (orderId > 0) {
+            _productsData.postValue(orderProductRepository.getByOrderId(orderId).toMutableList())
+        }
+    }
+
+    fun insertProduct(productId: Long) = viewModelScope.launch {
+
+        if (productId > 0) {
+            val product = productRepository.getProductById(productId)
+            if (product == null) {
+                _orderMessageEventData.value = R.string.order_error_product_not_found
+            } else {
+                addProductToList(product)
+            }
+            _orderStateEventData.value = OrderState.TriedToInsertProduct
+        }
+    }
+
+    private fun addProductToList(product: ProductEntity) {
+        val orderProduct = OrderProductEntity(
+            productId = product.id,
+            quantity = 1,
+            price = product.price,
+            total = product.price * 1
+        )
+
+        if (_productsData.value == null) {
+            _productsData.value = mutableListOf()
+        }
+        _productsData.value?.add(orderProduct)
+        _productsData.postValue(_productsData.value)
+    }
 
     fun getAllCustomers() = viewModelScope.launch {
         _allCustomersEventData.postValue(customerRepository.getAllCustomers())
@@ -36,18 +80,18 @@ class OrderViewModel(
         _selectedCustomer = _allCustomersEventData.value?.get(position)
     }
 
-    fun insertOrUpdateOrder(total: Double, id: Long) {
+    fun insertOrUpdateOrder(id: Long) {
         if (id > 0) {
-            updateOrder(total, id)
+            updateOrder(id)
         } else {
-            insertOrder(total)
+            insertOrder()
         }
     }
 
-    private fun updateOrder(total: Double, id: Long) =
+    private fun updateOrder(id: Long) =
         viewModelScope.launch {
             try {
-                orderRepository.updateOrder(id, _selectedCustomer!!.id, total)
+                orderRepository.updateOrder(id, _selectedCustomer!!.id, getOrderTotal())
                 _orderStateEventData.value = OrderState.Updated
                 _orderMessageEventData.value = R.string.order_updated_successfully
             } catch (e: Exception) {
@@ -56,24 +100,43 @@ class OrderViewModel(
             }
         }
 
-    private fun insertOrder(total: Double) =
+    private fun insertOrder() =
         viewModelScope.launch {
-            try {
-                val id = orderRepository.insertOrder(_selectedCustomer!!.id, total)
-                if (id > 0) {
-                    _orderStateEventData.value = OrderState.Inserted
-                    _orderMessageEventData.value = R.string.order_inserted_successfully
-                }
-            } catch (e: Exception) {
-                _orderMessageEventData.value = R.string.order_error_to_insert
-                Log.e(TAG, e.toString())
-            }
 
+            if (_productsData.value?.isEmpty() == true) {
+                _orderMessageEventData.value = R.string.order_error_no_items
+            } else {
+
+                try {
+                    val id = orderRepository.insertOrder(_selectedCustomer!!.id, getOrderTotal())
+                    if (id > 0) {
+
+                        for (item in _productsData.value!!) {
+                            item.orderId = id
+                        }
+
+                        orderProductRepository.insert(*_productsData.value!!.toTypedArray())
+
+                        _orderStateEventData.value = OrderState.Inserted
+                        _orderMessageEventData.value = R.string.order_inserted_successfully
+                    }
+                } catch (e: Exception) {
+                    _orderMessageEventData.value = R.string.order_error_to_insert
+                    Log.e(TAG, e.toString())
+                }
+
+            }
         }
+
+    private fun getOrderTotal(): Double {
+        val a = _productsData.value!!.toList().sumOf { it.total }
+        return a;
+    }
 
     sealed class OrderState {
         object Inserted : OrderState()
         object Updated : OrderState()
+        object TriedToInsertProduct : OrderState()
     }
 
     companion object {

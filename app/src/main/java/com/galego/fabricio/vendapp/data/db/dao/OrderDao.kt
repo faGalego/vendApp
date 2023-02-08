@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.galego.fabricio.vendapp.data.db.entity.OrderEntity
+import com.galego.fabricio.vendapp.data.db.wrapper.OrderCustomer
 
 @Dao
 interface OrderDao {
@@ -17,6 +18,4 @@ interface OrderDao {
     @Query("DELETE FROM `order` WHERE id = :id")
     suspend fun delete(id: Long)
 
-    @Query("SELECT * FROM `order`")
-    suspend fun getAll(): List<OrderEntity>
 }

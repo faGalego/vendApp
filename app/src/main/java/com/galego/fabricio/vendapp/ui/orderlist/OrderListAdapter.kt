@@ -7,13 +7,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.galego.fabricio.vendapp.R
 import com.galego.fabricio.vendapp.data.common.Converters
-import com.galego.fabricio.vendapp.data.db.entity.OrderEntity
+import com.galego.fabricio.vendapp.data.db.wrapper.OrderCustomer
 
 class OrderListAdapter(
-    private val ordersList: List<OrderEntity>
+    private val ordersList: List<OrderCustomer>
 ) : RecyclerView.Adapter<OrderListAdapter.OrderListViewHolder>() {
 
-    var onItemClick: ((order: OrderEntity) -> Unit)? = null
+    var onItemClick: ((order: OrderCustomer) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderListViewHolder {
         val view =
@@ -32,9 +32,9 @@ class OrderListAdapter(
         private val textCustomer = itemView.findViewById<TextView>(R.id.orderlistitem_name_textview)
         private val textTotal = itemView.findViewById<TextView>(R.id.orderlistitem_total_textview)
 
-        fun bind(order: OrderEntity) {
-            textCustomer.text = order.customerId.toString()
-            textTotal.text = Converters.doubleToMoneyString(order.total)
+        fun bind(order: OrderCustomer) {
+            textCustomer.text = order.customerName
+            textTotal.text = Converters.doubleToMoneyString(order.orderTotal)
             itemView.setOnClickListener {
                 onItemClick?.invoke(order)
             }

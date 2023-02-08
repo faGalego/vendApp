@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.galego.fabricio.vendapp.R
 import com.galego.fabricio.vendapp.data.db.AppDatabase
 import com.galego.fabricio.vendapp.databinding.OrderListFragmentBinding
+import com.galego.fabricio.vendapp.repository.OrderCustomerRepositoryImpl
 import com.galego.fabricio.vendapp.repository.OrderRepositoryImpl
 
 class OrderListFragment : Fragment() {
@@ -22,8 +23,8 @@ class OrderListFragment : Fragment() {
     private val viewModel: OrderListViewModel by viewModels {
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                val dao = AppDatabase.getInstance(requireContext()).orderDao
-                val repository = OrderRepositoryImpl(dao)
+                val dao = AppDatabase.getInstance(requireContext()).orderCustomerDao
+                val repository = OrderCustomerRepositoryImpl(dao)
                 return OrderListViewModel(repository) as T
             }
         }
