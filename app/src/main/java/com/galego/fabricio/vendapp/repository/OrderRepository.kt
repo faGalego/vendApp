@@ -1,5 +1,6 @@
 package com.galego.fabricio.vendapp.repository
 
+import com.galego.fabricio.vendapp.data.db.wrapper.MonthWithTotal
 import java.util.*
 
 interface OrderRepository {
@@ -10,4 +11,5 @@ interface OrderRepository {
 
     suspend fun deleteOrder(id: Long)
 
+    suspend fun getTotalGroupingByDate(): List<MonthWithTotal?>
 }

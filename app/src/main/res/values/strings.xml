@@ -6,6 +6,7 @@
     <string name="mainmenu_products_button">Products</string>
     <string name="mainmenu_customers_button">Customers</string>
     <string name="mainmenu_orders_button">Orders</string>
+    <string name="mainmenu_no_data_available_chart">No data available</string>
 
     <!-- Product List Fragment -->
     <string name="productlist_title">Products</string>

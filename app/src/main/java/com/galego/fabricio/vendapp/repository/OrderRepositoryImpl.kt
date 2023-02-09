@@ -2,6 +2,7 @@ package com.galego.fabricio.vendapp.repository
 
 import com.galego.fabricio.vendapp.data.db.dao.OrderDao
 import com.galego.fabricio.vendapp.data.db.entity.OrderEntity
+import com.galego.fabricio.vendapp.data.db.wrapper.MonthWithTotal
 import java.util.*
 
 class OrderRepositoryImpl(
@@ -21,6 +22,10 @@ class OrderRepositoryImpl(
 
     override suspend fun deleteOrder(id: Long) {
         orderDao.delete(id)
+    }
+
+    override suspend fun getTotalGroupingByDate(): List<MonthWithTotal?> {
+        return orderDao.getTotalGroupingByDate()
     }
 
 
