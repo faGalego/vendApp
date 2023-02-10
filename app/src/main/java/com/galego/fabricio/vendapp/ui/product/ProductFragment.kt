@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
@@ -16,6 +17,7 @@ import com.galego.fabricio.vendapp.data.common.Converters
 import com.galego.fabricio.vendapp.data.common.MoneyTextWatcher
 import com.galego.fabricio.vendapp.data.db.AppDatabase
 import com.galego.fabricio.vendapp.databinding.ProductFragmentBinding
+import com.galego.fabricio.vendapp.extension.hideKeyboard
 import com.galego.fabricio.vendapp.repository.ProductRepository
 import com.galego.fabricio.vendapp.repository.ProductRepositoryImpl
 
@@ -69,6 +71,7 @@ class ProductFragment : Fragment() {
                 is ProductViewModel.ProductState.Inserted,
                 ProductViewModel.ProductState.Updated -> {
                     clearFields()
+                    hideKeyboard()
                     findNavController().popBackStack()
                 }
             }
@@ -82,6 +85,13 @@ class ProductFragment : Fragment() {
     private fun clearFields() {
         binding.fragmentProductNameEditText.text?.clear()
         binding.fragmentProductPriceEditText.text?.clear()
+    }
+
+    private fun hideKeyboard() {
+        val parentActivity = requireActivity()
+        if (parentActivity is AppCompatActivity) {
+            parentActivity.hideKeyboard()
+        }
     }
 
     private fun setListeners() {
