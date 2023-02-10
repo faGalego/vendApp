@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
@@ -16,6 +17,7 @@ import androidx.navigation.fragment.navArgs
 import com.galego.fabricio.vendapp.R
 import com.galego.fabricio.vendapp.data.db.AppDatabase
 import com.galego.fabricio.vendapp.databinding.OrderFragmentBinding
+import com.galego.fabricio.vendapp.extension.hideKeyboard
 import com.galego.fabricio.vendapp.repository.CustomerRepositoryImpl
 import com.galego.fabricio.vendapp.repository.OrderProductRepositoryImpl
 import com.galego.fabricio.vendapp.repository.OrderRepositoryImpl
@@ -94,6 +96,7 @@ class OrderFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 OrderViewModel.OrderState.Inserted,
                 OrderViewModel.OrderState.Updated -> {
                     clearFields()
+                    hideKeyboard()
                     findNavController().popBackStack()
                 }
                 OrderViewModel.OrderState.TriedToInsertProduct -> clearFields()
@@ -108,6 +111,13 @@ class OrderFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     private fun clearFields() {
         binding.fragmentOrderProductEditText.text?.clear()
+    }
+
+    private fun hideKeyboard() {
+        val parentActivity = requireActivity()
+        if (parentActivity is AppCompatActivity) {
+            parentActivity.hideKeyboard()
+        }
     }
 
     private fun setListeners() {
