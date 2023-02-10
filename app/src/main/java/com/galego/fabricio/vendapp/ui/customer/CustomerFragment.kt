@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -13,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.galego.fabricio.vendapp.data.db.AppDatabase
 import com.galego.fabricio.vendapp.databinding.CustomerFragmentBinding
+import com.galego.fabricio.vendapp.extension.hideKeyboard
 import com.galego.fabricio.vendapp.repository.CustomerRepositoryImpl
 
 class CustomerFragment : Fragment() {
@@ -60,6 +62,7 @@ class CustomerFragment : Fragment() {
                 CustomerViewModel.CustomerState.Inserted,
                 CustomerViewModel.CustomerState.Updated -> {
                     clearFields()
+                    hideKeyboard()
                     findNavController().popBackStack()
                 }
             }
@@ -73,6 +76,13 @@ class CustomerFragment : Fragment() {
     private fun clearFields() {
         binding.fragmentCustomerNameEditText.text?.clear()
         binding.fragmentCustomerPhoneEditText.text?.clear()
+    }
+
+    private fun hideKeyboard() {
+        val parentActivity = requireActivity()
+        if (parentActivity is AppCompatActivity) {
+            parentActivity.hideKeyboard()
+        }
     }
 
     private fun setListeners() {
