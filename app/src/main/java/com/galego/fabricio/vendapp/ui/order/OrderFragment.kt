@@ -84,6 +84,11 @@ class OrderFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         viewModel.productsData.observe(viewLifecycleOwner) { products ->
             val productsAdapter = OrderProductAdapter(products)
+
+            productsAdapter.onDeleteClick = { product ->
+                viewModel.removeProduct(product)
+            }
+
             binding.fragmentOrderProductsRecyclerview.run {
                 setHasFixedSize(true)
                 adapter = productsAdapter

@@ -37,6 +37,7 @@ class OrderViewModel(
     val allCustomersEventData: LiveData<List<CustomerEntity>> get() = _allCustomersEventData
 
     private var _selectedCustomer: CustomerEntity? = null
+    private var _orderProductsToDelete: MutableList<Long> = mutableListOf()
 
     fun getProductsByOrderId(orderId: Long) = viewModelScope.launch {
         if (orderId > 0) {
@@ -72,6 +73,14 @@ class OrderViewModel(
         _productsData.postValue(_productsData.value)
     }
 
+    fun removeProduct(product: OrderProductEntity) {
+        if (product.id > 0) {
+            _orderProductsToDelete.add(product.id)
+        }
+        _productsData.value?.remove(product)
+        _productsData.postValue(_productsData.value)
+    }
+
     fun getAllCustomers() = viewModelScope.launch {
         _allCustomersEventData.postValue(customerRepository.getAllCustomers())
     }
@@ -101,7 +110,7 @@ class OrderViewModel(
                     getOrderTotal(),
                     Calendar.getInstance().time
                 )
-                insertOrUpdateProduct(id)
+                saveProductsOnDb(id)
                 _orderStateEventData.value = OrderState.Updated
                 _orderMessageEventData.value = R.string.order_updated_successfully
             } catch (e: Exception) {
@@ -119,7 +128,7 @@ class OrderViewModel(
                     Calendar.getInstance().time
                 )
                 if (id > 0) {
-                    insertOrUpdateProduct(id)
+                    saveProductsOnDb(id)
                     _orderStateEventData.value = OrderState.Inserted
                     _orderMessageEventData.value = R.string.order_inserted_successfully
                 }
@@ -129,7 +138,7 @@ class OrderViewModel(
             }
         }
 
-    private fun insertOrUpdateProduct(orderId: Long) {
+    private fun saveProductsOnDb(orderId: Long) {
         _productsData.value!!.forEach { item ->
             item.orderId = orderId
             if (item.id > 0) {
@@ -137,6 +146,9 @@ class OrderViewModel(
             } else {
                 insertProduct(item)
             }
+        }
+        _orderProductsToDelete.forEach { id ->
+            deleteProduct(id)
         }
     }
 
@@ -146,6 +158,10 @@ class OrderViewModel(
 
     private fun insertProduct(orderProduct: OrderProductEntity) = viewModelScope.launch {
         orderProductRepository.insert(orderProduct)
+    }
+
+    private fun deleteProduct(id: Long) = viewModelScope.launch {
+        orderProductRepository.delete(id)
     }
 
     private fun getOrderTotal(): Double {

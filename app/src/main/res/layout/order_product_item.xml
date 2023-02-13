@@ -3,57 +3,57 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingVertical="8dp">
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/order_product_name_textview"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/order_product_price_textview"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/order_product_quantity_textview"
+        app:layout_constraintRight_toLeftOf="@id/order_product_delete_button"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Product" />
-
-    <TextView
-        android:id="@+id/order_product_quantity_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/order_product_x_textview"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="999" />
-
-    <TextView
-        android:id="@+id/order_product_x_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/order_product_price_textview"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text=" x " />
 
     <TextView
         android:id="@+id/order_product_price_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/order_product_total_textview"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/order_product_name_textview"
         tools:text="R$ 9,99" />
+
+    <TextView
+        android:id="@+id/order_product_quantity_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@id/order_product_price_textview"
+        app:layout_constraintLeft_toRightOf="@id/order_product_price_textview"
+        app:layout_constraintRight_toLeftOf="@id/order_product_total_textview"
+        app:layout_constraintTop_toTopOf="@id/order_product_price_textview"
+        tools:text="x999" />
 
     <TextView
         android:id="@+id/order_product_total_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/order_product_price_textview"
+        app:layout_constraintRight_toLeftOf="@id/order_product_delete_button"
+        app:layout_constraintTop_toTopOf="@id/order_product_price_textview"
         tools:text="R$ 999,99" />
+
+    <ImageView
+        android:id="@+id/order_product_delete_button"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:padding="8dp"
+        android:src="@drawable/ic_delete"
+        app:layout_constraintBottom_toBottomOf="@id/order_product_price_textview"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/order_product_price_textview" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
