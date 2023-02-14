@@ -28,8 +28,8 @@ data class OrderProductEntity(
     val id: Long = 0,
     var orderId: Long = 0,
     val productId: Long,
-    val quantity: Int,
+    var quantity: Int,
     val price: Double,
-    val total: Double
+    var total: Double
 ) {
 }

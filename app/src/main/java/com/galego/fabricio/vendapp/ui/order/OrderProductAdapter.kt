@@ -3,6 +3,7 @@ package com.galego.fabricio.vendapp.ui.order
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +16,8 @@ class OrderProductAdapter(
 ) : RecyclerView.Adapter<OrderProductAdapter.OrderProductViewHolder>() {
 
     var onDeleteClick: ((orderProduct: OrderProductEntity) -> Unit)? = null
+    var onOneMoreClick: ((orderProduct: OrderProductEntity) -> Unit)? = null
+    var onOneLessClick: ((orderProduct: OrderProductEntity) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderProductViewHolder {
         val view =
@@ -35,7 +38,13 @@ class OrderProductAdapter(
         private val textPrice = itemView.findViewById<TextView>(R.id.order_product_price_textview)
         private val textTotal = itemView.findViewById<TextView>(R.id.order_product_total_textview)
 
-        private val deleteImg = itemView.findViewById<ImageView>(R.id.order_product_delete_button)
+        private val deleteImg =
+            itemView.findViewById<ImageView>(R.id.order_product_delete_button)
+        private val oneMoreButton =
+            itemView.findViewById<Button>(R.id.order_product_one_more_button)
+        private val oneLessButton =
+            itemView.findViewById<Button>(R.id.order_product_one_less_button)
+
 
         fun bind(product: OrderProductEntity) {
 
@@ -44,9 +53,9 @@ class OrderProductAdapter(
             textPrice.text = Converters.doubleToMoneyString(product.price)
             textTotal.text = Converters.doubleToMoneyString(product.total)
 
-            deleteImg.setOnClickListener {
-                onDeleteClick?.invoke(product)
-            }
+            deleteImg.setOnClickListener { onDeleteClick?.invoke(product) }
+            oneMoreButton.setOnClickListener { onOneMoreClick?.invoke(product) }
+            oneLessButton.setOnClickListener { onOneLessClick?.invoke(product) }
 
         }
     }

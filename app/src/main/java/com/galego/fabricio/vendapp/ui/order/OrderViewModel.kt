@@ -81,6 +81,28 @@ class OrderViewModel(
         _productsData.postValue(_productsData.value)
     }
 
+    fun oneMore(product: OrderProductEntity) {
+        val currentList = _productsData.value ?: return
+        val existingProduct = currentList.find { it == product }
+
+        if (existingProduct != null) {
+            existingProduct.quantity += 1
+            existingProduct.total = existingProduct.quantity * existingProduct.price
+            _productsData.postValue(currentList)
+        }
+    }
+
+    fun oneLess(product: OrderProductEntity) {
+        val currentList = _productsData.value ?: return
+        val existingProduct = currentList.find { it == product }
+
+        if (existingProduct != null && existingProduct.quantity > 1) {
+            existingProduct.quantity -= 1
+            existingProduct.total = existingProduct.quantity * existingProduct.price
+            _productsData.postValue(currentList)
+        }
+    }
+
     fun getAllCustomers() = viewModelScope.launch {
         _allCustomersEventData.postValue(customerRepository.getAllCustomers())
     }
