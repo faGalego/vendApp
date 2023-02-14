@@ -29,12 +29,15 @@ class ProductListAdapter(
 
     inner class ProductListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+        private val textViewId: TextView =
+            itemView.findViewById(R.id.productlistitem_id_textview)
         private val textViewName: TextView =
             itemView.findViewById(R.id.productlistitem_name_textview)
         private val textViewPrice: TextView =
             itemView.findViewById(R.id.productlistitem_price_textview)
 
         fun bind(product: ProductEntity) {
+            textViewId.text = "#${product.id}"
             textViewName.text = product.name
             textViewPrice.text = Converters.doubleToMoneyString(product.price)
             itemView.setOnClickListener {

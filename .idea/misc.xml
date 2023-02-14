@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Fabricio-Projetos/vendApp/app/src/main/res/drawable/ic_arrow_forward.xml" value="0.231" />
         <entry key="..\:/Fabricio-Projetos/vendApp/app/src/main/res/layout/customer_fragment.xml" value="0.30364583333333334" />
         <entry key="..\:/Fabricio-Projetos/vendApp/app/src/main/res/layout/fragment_main_menu.xml" value="0.30572916666666666" />
         <entry key="..\:/Fabricio-Projetos/vendApp/app/src/main/res/layout/order_fragment.xml" value="0.25" />
@@ -10,6 +11,7 @@
         <entry key="..\:/Fabricio-Projetos/vendApp/app/src/main/res/layout/order_list_item.xml" value="0.45" />
         <entry key="..\:/Fabricio-Projetos/vendApp/app/src/main/res/layout/order_product_item.xml" value="0.30364583333333334" />
         <entry key="..\:/Fabricio-Projetos/vendApp/app/src/main/res/layout/product_fragment.xml" value="0.30364583333333334" />
+        <entry key="..\:/Fabricio-Projetos/vendApp/app/src/main/res/layout/product_list_item.xml" value="0.36102564102564105" />
       </map>
     </option>
   </component>
