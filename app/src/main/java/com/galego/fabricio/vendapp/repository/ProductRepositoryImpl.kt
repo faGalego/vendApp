@@ -2,6 +2,7 @@ package com.galego.fabricio.vendapp.repository
 
 import com.galego.fabricio.vendapp.data.db.dao.ProductDao
 import com.galego.fabricio.vendapp.data.db.entity.ProductEntity
+import com.galego.fabricio.vendapp.data.db.wrapper.BestSeller
 
 class ProductRepositoryImpl(
     private val productDao: ProductDao
@@ -27,5 +28,13 @@ class ProductRepositoryImpl(
 
     override suspend fun getProductById(id: Long): ProductEntity? {
         return productDao.getById(id)
+    }
+
+    override suspend fun getCountProducts(): Int {
+        return productDao.getCountProducts()
+    }
+
+    override suspend fun getBestSeller(): BestSeller? {
+        return productDao.getBestSeller()
     }
 }

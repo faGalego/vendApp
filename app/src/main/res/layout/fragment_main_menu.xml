@@ -15,29 +15,71 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-    <Button
-        android:id="@+id/fragment_mainmenu_products_button"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Products"
-        app:layout_constraintBottom_toTopOf="@id/fragment_mainmenu_customers_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fragment_mainmenu_orders_chart" />
-
     <Button
         android:id="@+id/fragment_mainmenu_customers_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Customers"
-        app:layout_constraintBottom_toTopOf="@id/fragment_mainmenu_customersorders_divider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fragment_mainmenu_products_button" />
+        app:layout_constraintTop_toBottomOf="@id/fragment_mainmenu_orders_chart" />
 
     <com.google.android.material.divider.MaterialDivider
-        android:id="@+id/fragment_mainmenu_customersorders_divider"
+        android:id="@+id/fragment_mainmenu_customersproducts_divider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        app:layout_constraintBottom_toTopOf="@id/fragment_mainmenu_products_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/fragment_mainmenu_products_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        app:layout_constraintBottom_toTopOf="@id/fragment_mainmenu_orders_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/fragment_mainmenu_products_title_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:text="@string/mainmenu_products_bi_title"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_arrow_forward"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/fragment_mainmenu_product_bestseller_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fragment_mainmenu_products_title_textview"
+            tools:text="Mais vendido: Churros congelado Doce Mel  500g" />
+
+        <TextView
+            android:id="@+id/fragment_mainmenu_products_count_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fragment_mainmenu_product_bestseller_textview"
+            tools:text="99 produtos" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/fragment_mainmenu_productsorders_divider"
         android:layout_width="0dp"
         android:layout_height="1dp"
         app:layout_constraintBottom_toTopOf="@id/fragment_mainmenu_orders_layout"

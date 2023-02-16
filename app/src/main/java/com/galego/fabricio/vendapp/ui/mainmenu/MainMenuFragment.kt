@@ -16,6 +16,7 @@ import com.galego.fabricio.vendapp.data.db.AppDatabase
 import com.galego.fabricio.vendapp.data.db.wrapper.MonthWithTotal
 import com.galego.fabricio.vendapp.databinding.FragmentMainMenuBinding
 import com.galego.fabricio.vendapp.repository.OrderRepositoryImpl
+import com.galego.fabricio.vendapp.repository.ProductRepositoryImpl
 import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
@@ -32,9 +33,14 @@ class MainMenuFragment : Fragment() {
     private val viewModel: MainMenuViewModel by viewModels {
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                val dao = AppDatabase.getInstance(requireContext()).orderDao
-                val repository = OrderRepositoryImpl(dao)
-                return MainMenuViewModel(repository) as T
+
+                val orderDao = AppDatabase.getInstance(requireContext()).orderDao
+                val orderRepository = OrderRepositoryImpl(orderDao)
+
+                val productDao = AppDatabase.getInstance(requireContext()).productDao
+                val productRepository = ProductRepositoryImpl(productDao)
+
+                return MainMenuViewModel(orderRepository, productRepository) as T
             }
         }
     }
@@ -112,6 +118,21 @@ class MainMenuFragment : Fragment() {
                 }
         }
 
+        viewModel.countProducts.observe(viewLifecycleOwner) { count ->
+            binding.fragmentMainmenuProductsCountTextview.text =
+                if (count > 1) {
+                    getString(R.string.mainmenu_products_bi_manycount, count.toString())
+                } else {
+                    getString(R.string.mainmenu_products_bi_singlecount, count.toString())
+                }
+        }
+
+        viewModel.bestSeller.observe(viewLifecycleOwner) { bestSeller ->
+            bestSeller?.let {
+                binding.fragmentMainmenuProductBestsellerTextview.text =
+                    getString(R.string.mainmenu_products_bi_bestseller, bestSeller.name)
+            }
+        }
     }
 
     private fun loadOrdersChart(monthsAndTotals: List<MonthWithTotal?>?) {
@@ -154,7 +175,7 @@ class MainMenuFragment : Fragment() {
     }
 
     private fun setListeners() {
-        binding.fragmentMainmenuProductsButton.setOnClickListener {
+        binding.fragmentMainmenuProductsLayout.setOnClickListener {
             findNavController().navigate(R.id.action_mainMenuFragment_to_productListFragment)
         }
         binding.fragmentMainmenuCustomersButton.setOnClickListener {
@@ -169,6 +190,7 @@ class MainMenuFragment : Fragment() {
         super.onResume()
         viewModel.getAllTotalsByMonths()
         viewModel.getOrdersBiInfo()
+        viewModel.getProductsBiInfo()
     }
 
     override fun onDestroyView() {

@@ -23,6 +23,10 @@
     <string name="mainmenu_december">December</string>
     <string name="mainmenu_orders_bi_manycount">%s orders</string>
     <string name="mainmenu_orders_bi_singlecount">%s order</string>
+    <string name="mainmenu_products_bi_title">Products</string>
+    <string name="mainmenu_products_bi_bestseller">Best seller: %s</string>
+    <string name="mainmenu_products_bi_manycount">%s products</string>
+    <string name="mainmenu_products_bi_singlecount">%s product</string>
 
     <!-- Product List Fragment -->
     <string name="productlist_title">Products</string>

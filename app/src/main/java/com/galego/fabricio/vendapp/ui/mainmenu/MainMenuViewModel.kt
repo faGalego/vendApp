@@ -7,13 +7,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.galego.fabricio.vendapp.R
 import com.galego.fabricio.vendapp.data.common.Converters
+import com.galego.fabricio.vendapp.data.db.wrapper.BestSeller
 import com.galego.fabricio.vendapp.data.db.wrapper.MonthWithTotal
 import com.galego.fabricio.vendapp.repository.OrderRepository
+import com.galego.fabricio.vendapp.repository.ProductRepository
 import kotlinx.coroutines.launch
 import java.util.*
 
 class MainMenuViewModel(
-    private val orderRepository: OrderRepository
+    private val orderRepository: OrderRepository,
+    private val productRepository: ProductRepository
 ) : ViewModel() {
 
     private val _allTotalsByMonths = MutableLiveData<List<MonthWithTotal?>>()
@@ -30,6 +33,11 @@ class MainMenuViewModel(
     private val _quantityTotalsByMonth = MutableLiveData<Int>()
     val quantityTotalsByMonth: LiveData<Int> get() = _quantityTotalsByMonth
 
+    private val _countProducts = MutableLiveData<Int>()
+    val countProducts: LiveData<Int> get() = _countProducts
+
+    private val _bestSeller = MutableLiveData<BestSeller?>()
+    val bestSeller: LiveData<BestSeller?> get() = _bestSeller
 
     fun getAllTotalsByMonths() = viewModelScope.launch {
         _allTotalsByMonths.postValue(orderRepository.getTotalGroupingByDate())
@@ -72,6 +80,19 @@ class MainMenuViewModel(
         _quantityTotalsByMonth.postValue(
             orderRepository.getCountOrdersByMonth(stringMonth)
         )
+    }
+
+    fun getProductsBiInfo() {
+        getCountProducts()
+        getBestSeller()
+    }
+
+    private fun getCountProducts() = viewModelScope.launch {
+        _countProducts.postValue(productRepository.getCountProducts())
+    }
+
+    private fun getBestSeller() = viewModelScope.launch {
+        _bestSeller.postValue(productRepository.getBestSeller())
     }
 
 }
