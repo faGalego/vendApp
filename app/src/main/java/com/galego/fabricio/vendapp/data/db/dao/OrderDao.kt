@@ -28,4 +28,10 @@ interface OrderDao {
     )
     suspend fun getTotalGroupingByDate(): List<MonthWithTotal?>
 
+    @Query("SELECT SUM(total) FROM `order` WHERE strftime('%m', createdAt/1000, 'unixepoch') = :month")
+    suspend fun getAmountTotalByMonth(month: String): Double?
+
+    @Query("SELECT COUNT(id) FROM `order` WHERE strftime('%m', createdAt/1000, 'unixepoch') = :month")
+    suspend fun getCountOrdersByMonth(month: String): Int
+
 }

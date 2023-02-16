@@ -28,5 +28,13 @@ class OrderRepositoryImpl(
         return orderDao.getTotalGroupingByDate()
     }
 
+    override suspend fun getAmountTotalByMonth(month: String): Double? {
+        return orderDao.getAmountTotalByMonth(month)
+    }
+
+    override suspend fun getCountOrdersByMonth(month: String): Int {
+        return orderDao.getCountOrdersByMonth(month)
+    }
+
 
 }

@@ -12,4 +12,8 @@ interface OrderRepository {
     suspend fun deleteOrder(id: Long)
 
     suspend fun getTotalGroupingByDate(): List<MonthWithTotal?>
+
+    suspend fun getAmountTotalByMonth(month: String): Double?
+
+    suspend fun getCountOrdersByMonth(month: String): Int
 }

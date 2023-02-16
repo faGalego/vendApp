@@ -1,6 +1,8 @@
 package com.galego.fabricio.vendapp.data.common
 
+import android.content.Context
 import androidx.room.TypeConverter
+import com.galego.fabricio.vendapp.R
 import java.text.NumberFormat
 import java.util.*
 
@@ -28,5 +30,8 @@ class Converters {
                     .replace(",", ".")
                     .trim()
                     .toDouble()
+
+        fun monthToString(month: Int) = String.format("%02d", month + 1)
     }
+
 }

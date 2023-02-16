@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
     tools:context=".ui.mainmenu.MainMenuFragment">
 
     <com.github.mikephil.charting.charts.BarChart
@@ -32,19 +31,62 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Customers"
-        app:layout_constraintBottom_toTopOf="@id/fragment_mainmenu_orders_button"
+        app:layout_constraintBottom_toTopOf="@id/fragment_mainmenu_customersorders_divider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/fragment_mainmenu_products_button" />
 
-    <Button
-        android:id="@+id/fragment_mainmenu_orders_button"
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/fragment_mainmenu_customersorders_divider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        app:layout_constraintBottom_toTopOf="@id/fragment_mainmenu_orders_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/fragment_mainmenu_orders_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Orders"
+        android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fragment_mainmenu_customers_button" />
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/fragment_mainmenu_orders_title_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Vendas de Fevereiro" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_arrow_forward"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/fragment_mainmenu_orders_amounttotal_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fragment_mainmenu_orders_title_textview"
+            tools:text="R$ 99,99" />
+
+        <TextView
+            android:id="@+id/fragment_mainmenu_orders_quantitytotal_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fragment_mainmenu_orders_amounttotal_textview"
+            tools:text="99 pedidos" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

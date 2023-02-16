@@ -82,11 +82,36 @@ class MainMenuFragment : Fragment() {
     }
 
     private fun setObservers() {
+
         viewModel.allTotalsByMonths.observe(viewLifecycleOwner) { monthsAndTotals ->
             if (monthsAndTotals.isNotEmpty()) {
                 loadOrdersChart(monthsAndTotals)
             }
         }
+
+        viewModel.currentMonth.observe(viewLifecycleOwner) { month ->
+            binding.fragmentMainmenuOrdersTitleTextview.text =
+                if (month > 0) {
+                    getString(R.string.mainmenu_orders_bi_title, getString(month))
+                } else {
+                    getString(R.string.mainmenu_orders_bi_defaulttitle)
+                }
+        }
+
+        viewModel.amountTotalsByMonth.observe(viewLifecycleOwner) { amount ->
+            binding.fragmentMainmenuOrdersAmounttotalTextview.text =
+                Converters.doubleToMoneyString(amount)
+        }
+
+        viewModel.quantityTotalsByMonth.observe(viewLifecycleOwner) { countOrders ->
+            binding.fragmentMainmenuOrdersQuantitytotalTextview.text =
+                if (countOrders > 1) {
+                    getString(R.string.mainmenu_orders_bi_manycount, countOrders.toString())
+                } else {
+                    getString(R.string.mainmenu_orders_bi_singlecount, countOrders.toString())
+                }
+        }
+
     }
 
     private fun loadOrdersChart(monthsAndTotals: List<MonthWithTotal?>?) {
@@ -135,7 +160,7 @@ class MainMenuFragment : Fragment() {
         binding.fragmentMainmenuCustomersButton.setOnClickListener {
             findNavController().navigate(R.id.action_mainMenuFragment_to_customerListFragment)
         }
-        binding.fragmentMainmenuOrdersButton.setOnClickListener {
+        binding.fragmentMainmenuOrdersLayout.setOnClickListener {
             findNavController().navigate(R.id.action_mainMenuFragment_to_orderListFragment)
         }
     }
@@ -143,6 +168,7 @@ class MainMenuFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         viewModel.getAllTotalsByMonths()
+        viewModel.getOrdersBiInfo()
     }
 
     override fun onDestroyView() {
