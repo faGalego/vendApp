@@ -12,7 +12,8 @@ interface OrderCustomerDao {
             customer.id AS customerId,
             customer.name AS customerName,
             `order`.id AS orderId,
-            `order`.total AS orderTotal
+            `order`.total AS orderTotal,
+            `order`.createdAt
         FROM `order`
         INNER JOIN customer ON customer.id = `order`.customerId"""
     )

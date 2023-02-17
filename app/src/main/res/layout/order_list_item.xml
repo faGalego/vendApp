@@ -7,24 +7,42 @@
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/orderlistitem_name_textview"
+        android:id="@+id/orderlistitem_id_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/orderlistitem_total_textview"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/orderlistitem_createdat_textview"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Customer" />
+        tools:text="#999" />
+
+    <TextView
+        android:id="@+id/orderlistitem_name_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toRightOf="@id/orderlistitem_id_textview"
+        app:layout_constraintTop_toTopOf="@id/orderlistitem_id_textview"
+        tools:text="Customer Name" />
+
+    <TextView
+        android:id="@+id/orderlistitem_createdat_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/orderlistitem_total_textview"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/orderlistitem_id_textview"
+        tools:text="99/99/9999" />
 
     <TextView
         android:id="@+id/orderlistitem_total_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/orderlistitem_name_textview"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/orderlistitem_createdat_textview"
         tools:text="R$ 99.999,99" />
 
     <ImageView

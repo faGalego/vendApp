@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.galego.fabricio.vendapp.R
 import com.galego.fabricio.vendapp.data.common.Converters
 import com.galego.fabricio.vendapp.data.db.wrapper.OrderCustomer
+import java.text.SimpleDateFormat
+import java.util.*
 
 class OrderListAdapter(
     private val ordersList: List<OrderCustomer>
@@ -29,11 +31,16 @@ class OrderListAdapter(
 
     inner class OrderListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+        private val textId = itemView.findViewById<TextView>(R.id.orderlistitem_id_textview)
         private val textCustomer = itemView.findViewById<TextView>(R.id.orderlistitem_name_textview)
+        private val textCreatedAt = itemView.findViewById<TextView>(R.id.orderlistitem_createdat_textview)
         private val textTotal = itemView.findViewById<TextView>(R.id.orderlistitem_total_textview)
 
         fun bind(order: OrderCustomer) {
+
+            textId.text = "#${order.orderId}"
             textCustomer.text = order.customerName
+            textCreatedAt.text = SimpleDateFormat("dd/mm/yyyy").format(order.createdAt)
             textTotal.text = Converters.doubleToMoneyString(order.orderTotal)
             itemView.setOnClickListener {
                 onItemClick?.invoke(order)

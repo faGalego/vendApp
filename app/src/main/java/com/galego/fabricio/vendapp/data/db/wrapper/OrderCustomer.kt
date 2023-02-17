@@ -6,11 +6,13 @@ import androidx.room.Relation
 import com.galego.fabricio.vendapp.data.db.entity.CustomerEntity
 import com.galego.fabricio.vendapp.data.db.entity.OrderEntity
 import kotlinx.parcelize.Parcelize
+import java.util.*
 
 @Parcelize
 data class OrderCustomer(
     val customerId: Long,
     val customerName: String,
     val orderId: Long,
-    val orderTotal: Double
+    val orderTotal: Double,
+    val createdAt: Date
 ) : Parcelable
