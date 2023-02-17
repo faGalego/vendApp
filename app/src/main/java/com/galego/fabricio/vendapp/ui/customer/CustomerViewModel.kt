@@ -9,6 +9,7 @@ import com.galego.fabricio.vendapp.R
 import com.galego.fabricio.vendapp.repository.CustomerRepository
 import kotlinx.coroutines.launch
 import java.lang.Exception
+import java.util.*
 
 class CustomerViewModel(
     private val customerRepository: CustomerRepository
@@ -20,19 +21,19 @@ class CustomerViewModel(
     private val _customerMessageEventData = MutableLiveData<Int>()
     val customerMessageEventData: LiveData<Int> get() = _customerMessageEventData
 
-    fun insertOrUpdateCustomer(name: String, phone: String, id: Long) {
+    fun insertOrUpdateCustomer(name: String, phone: String, id: Long, createdAt: Date) {
         if (id > 0) {
-            updateCustomer(name, phone, id)
+            updateCustomer(name, phone, id, createdAt)
         } else {
             insertCustomer(name, phone)
         }
 
     }
 
-    private fun updateCustomer(name: String, phone: String, id: Long) =
+    private fun updateCustomer(name: String, phone: String, id: Long, createdAt: Date) =
         viewModelScope.launch {
             try {
-                customerRepository.updateCustomer(id, name, phone)
+                customerRepository.updateCustomer(id, name, phone, createdAt)
                 _customerStateEventData.value = CustomerState.Updated
                 _customerMessageEventData.value = R.string.customer_updated_successfully
             } catch (e: Exception) {

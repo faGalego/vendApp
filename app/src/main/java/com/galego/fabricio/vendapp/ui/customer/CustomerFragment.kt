@@ -16,6 +16,7 @@ import com.galego.fabricio.vendapp.data.db.AppDatabase
 import com.galego.fabricio.vendapp.databinding.CustomerFragmentBinding
 import com.galego.fabricio.vendapp.extension.hideKeyboard
 import com.galego.fabricio.vendapp.repository.CustomerRepositoryImpl
+import java.util.*
 
 class CustomerFragment : Fragment() {
 
@@ -89,7 +90,12 @@ class CustomerFragment : Fragment() {
         binding.fragmentCustomerSaveButton.setOnClickListener {
             val name = binding.fragmentCustomerNameEditText.text.toString().trim()
             val phone = binding.fragmentCustomerPhoneEditText.text.toString().trim()
-            viewModel.insertOrUpdateCustomer(name, phone, args.customer?.id ?: 0)
+            viewModel.insertOrUpdateCustomer(
+                name,
+                phone,
+                args.customer?.id ?: 0,
+                args.customer?.createdAt ?: Calendar.getInstance().time
+            )
         }
     }
 

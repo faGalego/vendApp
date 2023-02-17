@@ -27,6 +27,12 @@
     <string name="mainmenu_products_bi_bestseller">Best seller: %s</string>
     <string name="mainmenu_products_bi_manycount">%s products</string>
     <string name="mainmenu_products_bi_singlecount">%s product</string>
+    <string name="mainmenu_customers_bi_title">Customers</string>
+    <string name="mainmenu_customers_bi_newmany">%s new</string>
+    <string name="mainmenu_customers_bi_newsingle">%s new</string>
+    <string name="mainmenu_customers_bi_manycount">%s customers</string>
+    <string name="mainmenu_customers_bi_singlecount">%s customer</string>
+
 
     <!-- Product List Fragment -->
     <string name="productlist_title">Products</string>

@@ -9,6 +9,7 @@ import com.galego.fabricio.vendapp.R
 import com.galego.fabricio.vendapp.data.common.Converters
 import com.galego.fabricio.vendapp.data.db.wrapper.BestSeller
 import com.galego.fabricio.vendapp.data.db.wrapper.MonthWithTotal
+import com.galego.fabricio.vendapp.repository.CustomerRepository
 import com.galego.fabricio.vendapp.repository.OrderRepository
 import com.galego.fabricio.vendapp.repository.ProductRepository
 import kotlinx.coroutines.launch
@@ -16,7 +17,8 @@ import java.util.*
 
 class MainMenuViewModel(
     private val orderRepository: OrderRepository,
-    private val productRepository: ProductRepository
+    private val productRepository: ProductRepository,
+    private val customerRepository: CustomerRepository
 ) : ViewModel() {
 
     private val _allTotalsByMonths = MutableLiveData<List<MonthWithTotal?>>()
@@ -39,19 +41,24 @@ class MainMenuViewModel(
     private val _bestSeller = MutableLiveData<BestSeller?>()
     val bestSeller: LiveData<BestSeller?> get() = _bestSeller
 
+    private val _newCustomers = MutableLiveData<Int>()
+    val newCustomers: LiveData<Int> get() = _newCustomers
+
+    private val _countCustomers = MutableLiveData<Int>()
+    val countCustomers: LiveData<Int> get() = _countCustomers
+
     fun getAllTotalsByMonths() = viewModelScope.launch {
         _allTotalsByMonths.postValue(orderRepository.getTotalGroupingByDate())
     }
 
+    fun setMonth() {
+        stringMonth = Converters.monthToString(Calendar.getInstance().get(Calendar.MONTH))
+    }
+
     fun getOrdersBiInfo() {
-        setMonth()
         getOrdersTitle()
         getAmountTotalByMonth()
         getQuantityTotalByMonth()
-    }
-
-    private fun setMonth() {
-        stringMonth = Converters.monthToString(Calendar.getInstance().get(Calendar.MONTH))
     }
 
     private fun getOrdersTitle() {
@@ -93,6 +100,19 @@ class MainMenuViewModel(
 
     private fun getBestSeller() = viewModelScope.launch {
         _bestSeller.postValue(productRepository.getBestSeller())
+    }
+
+    fun getCustomersBiInfo() {
+        getNewCustomers()
+        getCountCustomers()
+    }
+
+    private fun getNewCustomers() = viewModelScope.launch {
+        _newCustomers.postValue(customerRepository.getCountNewCustomersByMonth(stringMonth))
+    }
+
+    private fun getCountCustomers() = viewModelScope.launch {
+        _countCustomers.postValue(customerRepository.getCountCustomers())
     }
 
 }

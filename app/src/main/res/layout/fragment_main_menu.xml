@@ -9,20 +9,64 @@
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/fragment_mainmenu_orders_chart"
         android:layout_width="0dp"
-        android:layout_height="300dp"
-        android:layout_marginTop="16dp"
+        android:layout_height="0dp"
+        android:layout_margin="16dp"
+        app:layout_constraintBottom_toTopOf="@id/fragment_mainmenu_customers_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/fragment_mainmenu_customers_button"
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/fragment_mainmenu_chartcustomers_divider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        app:layout_constraintBottom_toTopOf="@id/fragment_mainmenu_customers_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/fragment_mainmenu_customers_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Customers"
+        android:padding="16dp"
+        app:layout_constraintBottom_toTopOf="@id/fragment_mainmenu_products_layout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fragment_mainmenu_orders_chart" />
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/fragment_mainmenu_customers_title_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mainmenu_customers_bi_title"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_arrow_forward"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/fragment_mainmenu_customers_new_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fragment_mainmenu_customers_title_textview"
+            tools:text="99 new" />
+
+        <TextView
+            android:id="@+id/fragment_mainmenu_customers_count_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fragment_mainmenu_customers_new_textview"
+            tools:text="99 customers" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.divider.MaterialDivider
         android:id="@+id/fragment_mainmenu_customersproducts_divider"
@@ -45,9 +89,9 @@
             android:id="@+id/fragment_mainmenu_products_title_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/mainmenu_products_bi_title"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:text="@string/mainmenu_products_bi_title"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

@@ -20,4 +20,10 @@ interface CustomerDao {
 
     @Query("SELECT * FROM customer")
     suspend fun getAll(): List<CustomerEntity>
+
+    @Query("SELECT COUNT(id) FROM customer")
+    suspend fun getCountCustomers(): Int
+
+    @Query("SELECT COUNT(id) FROM customer WHERE strftime('%m', createdAt/1000, 'unixepoch') = :month")
+    suspend fun getCountNewCustomersByMonth(month: String): Int
 }

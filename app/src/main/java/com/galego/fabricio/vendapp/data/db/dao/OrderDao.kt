@@ -19,16 +19,15 @@ interface OrderDao {
     suspend fun delete(id: Long)
 
     @Query(
-        """SELECT
-        
-            strftime('%Y-%m', createdAt/1000, 'unixepoch') as month, 
-        SUM(total) as total
-        from `order` 
-        GROUP BY 1"""
+        """SELECT        
+            strftime('%Y-%m', createdAt/1000, 'unixepoch') AS month, 
+            SUM(total) AS total
+            FROM `order` 
+            GROUP BY 1"""
     )
     suspend fun getTotalGroupingByDate(): List<MonthWithTotal?>
 
-    @Query("SELECT SUM(total) FROM `order` WHERE strftime('%m', createdAt/1000, 'unixepoch') = :month")
+    @Query("SELECT COALESCE(SUM(total),0) FROM `order` WHERE strftime('%m', createdAt/1000, 'unixepoch') = :month")
     suspend fun getAmountTotalByMonth(month: String): Double?
 
     @Query("SELECT COUNT(id) FROM `order` WHERE strftime('%m', createdAt/1000, 'unixepoch') = :month")

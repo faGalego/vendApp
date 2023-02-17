@@ -15,6 +15,7 @@ import com.galego.fabricio.vendapp.data.common.Converters
 import com.galego.fabricio.vendapp.data.db.AppDatabase
 import com.galego.fabricio.vendapp.data.db.wrapper.MonthWithTotal
 import com.galego.fabricio.vendapp.databinding.FragmentMainMenuBinding
+import com.galego.fabricio.vendapp.repository.CustomerRepositoryImpl
 import com.galego.fabricio.vendapp.repository.OrderRepositoryImpl
 import com.galego.fabricio.vendapp.repository.ProductRepositoryImpl
 import com.github.mikephil.charting.components.AxisBase
@@ -40,7 +41,14 @@ class MainMenuFragment : Fragment() {
                 val productDao = AppDatabase.getInstance(requireContext()).productDao
                 val productRepository = ProductRepositoryImpl(productDao)
 
-                return MainMenuViewModel(orderRepository, productRepository) as T
+                val customerDao = AppDatabase.getInstance(requireContext()).customerDao
+                val customerRepository = CustomerRepositoryImpl(customerDao)
+
+                return MainMenuViewModel(
+                    orderRepository,
+                    productRepository,
+                    customerRepository
+                ) as T
             }
         }
     }
@@ -133,6 +141,24 @@ class MainMenuFragment : Fragment() {
                     getString(R.string.mainmenu_products_bi_bestseller, bestSeller.name)
             }
         }
+
+        viewModel.newCustomers.observe(viewLifecycleOwner) { count ->
+            binding.fragmentMainmenuCustomersNewTextview.text =
+                if (count > 1) {
+                    getString(R.string.mainmenu_customers_bi_newmany, count.toString())
+                } else {
+                    getString(R.string.mainmenu_customers_bi_newsingle, count.toString())
+                }
+        }
+
+        viewModel.countCustomers.observe(viewLifecycleOwner) { count ->
+            binding.fragmentMainmenuCustomersCountTextview.text =
+                if (count > 1) {
+                    getString(R.string.mainmenu_customers_bi_manycount, count.toString())
+                } else {
+                    getString(R.string.mainmenu_customers_bi_singlecount, count.toString())
+                }
+        }
     }
 
     private fun loadOrdersChart(monthsAndTotals: List<MonthWithTotal?>?) {
@@ -178,7 +204,7 @@ class MainMenuFragment : Fragment() {
         binding.fragmentMainmenuProductsLayout.setOnClickListener {
             findNavController().navigate(R.id.action_mainMenuFragment_to_productListFragment)
         }
-        binding.fragmentMainmenuCustomersButton.setOnClickListener {
+        binding.fragmentMainmenuCustomersLayout.setOnClickListener {
             findNavController().navigate(R.id.action_mainMenuFragment_to_customerListFragment)
         }
         binding.fragmentMainmenuOrdersLayout.setOnClickListener {
@@ -188,9 +214,11 @@ class MainMenuFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        viewModel.setMonth()
         viewModel.getAllTotalsByMonths()
         viewModel.getOrdersBiInfo()
         viewModel.getProductsBiInfo()
+        viewModel.getCustomersBiInfo()
     }
 
     override fun onDestroyView() {
