@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">vendApp</string>
+
+    <!-- Main Menu Fragment -->
+    <string name="mainmenu_title">@string/app_name</string>
+    <string name="mainmenu_products_button">Produtos</string>
+    <string name="mainmenu_customers_button">Clientes</string>
+    <string name="mainmenu_orders_button">Pedidos</string>
+    <string name="mainmenu_no_data_available_chart">Nenhum dado disponível</string>
+    <string name="mainmenu_orders_bi_title">"Pedidos de %s"</string>
+    <string name="mainmenu_orders_bi_defaulttitle">Pedidos</string>
+    <string name="mainmenu_january">janeiro</string>
+    <string name="mainmenu_february">fevereiro</string>
+    <string name="mainmenu_march">março</string>
+    <string name="mainmenu_april">abril</string>
+    <string name="mainmenu_may">maio</string>
+    <string name="mainmenu_june">junho</string>
+    <string name="mainmenu_july">julho</string>
+    <string name="mainmenu_august">agosto</string>
+    <string name="mainmenu_september">setembro</string>
+    <string name="mainmenu_october">outubro</string>
+    <string name="mainmenu_november">novembro</string>
+    <string name="mainmenu_december">dezembro</string>
+    <string name="mainmenu_orders_bi_manycount">%s pedidos</string>
+    <string name="mainmenu_orders_bi_singlecount">%s pedido</string>
+    <string name="mainmenu_products_bi_title">Produtos</string>
+    <string name="mainmenu_products_bi_bestseller">Mais vendido: %s</string>
+    <string name="mainmenu_products_bi_manycount">%s produtos</string>
+    <string name="mainmenu_products_bi_singlecount">%s produto</string>
+    <string name="mainmenu_customers_bi_title">Clientes</string>
+    <string name="mainmenu_customers_bi_newmany">%s novos</string>
+    <string name="mainmenu_customers_bi_newsingle">%s novo</string>
+    <string name="mainmenu_customers_bi_manycount">%s clientes</string>
+    <string name="mainmenu_customers_bi_singlecount">%s cliente</string>
+
+
+    <!-- Product List Fragment -->
+    <string name="productlist_title">Produtos</string>
+
+    <!-- Product Fragment -->
+    <string name="product_title">Produto</string>
+    <string name="product_name_hint">Nome</string>
+    <string name="product_price_hint">Preço</string>
+    <string name="product_save_button">Salvar</string>
+    <string name="product_inserted_successfully">Produto salvo com sucesso</string>
+    <string name="product_updated_successfully">Produto atualizado com sucesso</string>
+    <string name="product_error_to_insert">Ocorreu um erro ao inserir o produto</string>
+    <string name="product_error_to_update">Ocorreu um erro ao atualizar o produto</string>
+
+    <!-- Customer List Fragment -->
+    <string name="customerlist_title">Clientes</string>
+
+    <!-- Customer Fragment -->
+    <string name="customer_title">Cliente</string>
+    <string name="customer_name_hint">Nome</string>
+    <string name="customer_phone_hint">Telefone</string>
+    <string name="customer_save_button">Salvar</string>
+    <string name="customer_inserted_successfully">Cliente salvo com sucesso</string>
+    <string name="customer_updated_successfully">Cliente atualizado com sucesso</string>
+    <string name="customer_error_to_insert">Ocorreu um erro ao inserir o cliente</string>
+    <string name="customer_error_to_update">Ocorreu um erro ao atualizar o cliente</string>
+
+    <!-- Order List Fragment -->
+    <string name="orderlist_title">Pedidos</string>
+
+    <!-- Order Fragment -->
+    <string name="order_title">Pedido</string>
+    <string name="order_customer_hint">Cliente</string>
+    <string name="order_product_hint">Produto</string>
+    <string name="order_total_hint">Total</string>
+    <string name="order_add_product_button">Adicionar</string>
+    <string name="order_save_button">Salvar</string>
+    <string name="order_inserted_successfully">Pedido salvo com sucesso</string>
+    <string name="order_updated_successfully">Pedido atualizado com sucesso</string>
+    <string name="order_error_no_items">Insira ao menos um produto</string>
+    <string name="order_error_product_not_found">Produto não encontrado</string>
+    <string name="order_error_to_insert">Ocorreu um erro ao inserir o pedido</string>
+    <string name="order_error_to_update">Ocorreu um erro ao atualizar o pedido</string>
+
+
+</resources>
