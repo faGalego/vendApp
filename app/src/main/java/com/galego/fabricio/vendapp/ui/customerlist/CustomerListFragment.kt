@@ -5,29 +5,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.galego.fabricio.vendapp.R
-import com.galego.fabricio.vendapp.data.db.AppDatabase
 import com.galego.fabricio.vendapp.databinding.CustomerListFragmentBinding
-import com.galego.fabricio.vendapp.repository.CustomerRepositoryImpl
+import org.koin.android.ext.android.inject
 
 class CustomerListFragment : Fragment() {
 
     private var _binding: CustomerListFragmentBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: CustomerListViewModel by viewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                val dao = AppDatabase.getInstance(requireContext()).customerDao
-                val repository = CustomerRepositoryImpl(dao)
-                return CustomerListViewModel(repository) as T
-            }
-        }
-    }
+    private val viewModel: CustomerListViewModel by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

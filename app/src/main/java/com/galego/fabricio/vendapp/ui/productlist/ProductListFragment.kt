@@ -1,34 +1,21 @@
 package com.galego.fabricio.vendapp.ui.productlist
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
 import com.galego.fabricio.vendapp.R
-import com.galego.fabricio.vendapp.data.db.AppDatabase
 import com.galego.fabricio.vendapp.databinding.ProductListFragmentBinding
-import com.galego.fabricio.vendapp.repository.ProductRepository
-import com.galego.fabricio.vendapp.repository.ProductRepositoryImpl
+import org.koin.android.ext.android.inject
 
 class ProductListFragment : Fragment() {
 
     private var _binding: ProductListFragmentBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: ProductListViewModel by viewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                val dao = AppDatabase.getInstance(requireContext()).productDao
-                val repository: ProductRepository = ProductRepositoryImpl(dao)
-                return ProductListViewModel(repository) as T
-            }
-        }
-    }
+    private val viewModel: ProductListViewModel by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

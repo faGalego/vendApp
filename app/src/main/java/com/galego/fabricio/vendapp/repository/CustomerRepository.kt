@@ -1,6 +1,5 @@
 package com.galego.fabricio.vendapp.repository
 
-import androidx.room.Query
 import com.galego.fabricio.vendapp.data.db.entity.CustomerEntity
 import java.util.*
 

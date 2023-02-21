@@ -59,6 +59,9 @@ dependencies {
 
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
+    def koin_version = "3.3.3"
+    implementation "io.insert-koin:koin-android:$koin_version"
+
     testImplementation 'junit:junit:4.13.2'
 
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'

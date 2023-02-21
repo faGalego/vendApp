@@ -1,23 +1,15 @@
 package com.galego.fabricio.vendapp.ui.mainmenu
 
-import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.galego.fabricio.vendapp.R
 import com.galego.fabricio.vendapp.data.common.Converters
-import com.galego.fabricio.vendapp.data.db.AppDatabase
 import com.galego.fabricio.vendapp.data.db.wrapper.MonthWithTotal
 import com.galego.fabricio.vendapp.databinding.FragmentMainMenuBinding
-import com.galego.fabricio.vendapp.repository.CustomerRepositoryImpl
-import com.galego.fabricio.vendapp.repository.OrderRepositoryImpl
-import com.galego.fabricio.vendapp.repository.ProductRepositoryImpl
 import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
@@ -25,33 +17,14 @@ import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
+import org.koin.android.ext.android.inject
 
 class MainMenuFragment : Fragment() {
 
     private var _binding: FragmentMainMenuBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: MainMenuViewModel by viewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-
-                val orderDao = AppDatabase.getInstance(requireContext()).orderDao
-                val orderRepository = OrderRepositoryImpl(orderDao)
-
-                val productDao = AppDatabase.getInstance(requireContext()).productDao
-                val productRepository = ProductRepositoryImpl(productDao)
-
-                val customerDao = AppDatabase.getInstance(requireContext()).customerDao
-                val customerRepository = CustomerRepositoryImpl(customerDao)
-
-                return MainMenuViewModel(
-                    orderRepository,
-                    productRepository,
-                    customerRepository
-                ) as T
-            }
-        }
-    }
+    private val viewModel: MainMenuViewModel by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

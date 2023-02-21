@@ -1,6 +1,5 @@
 package com.galego.fabricio.vendapp.ui.order
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,18 +9,12 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.galego.fabricio.vendapp.R
-import com.galego.fabricio.vendapp.data.db.AppDatabase
 import com.galego.fabricio.vendapp.databinding.OrderFragmentBinding
 import com.galego.fabricio.vendapp.extension.hideKeyboard
-import com.galego.fabricio.vendapp.repository.CustomerRepositoryImpl
-import com.galego.fabricio.vendapp.repository.OrderProductRepositoryImpl
-import com.galego.fabricio.vendapp.repository.OrderRepositoryImpl
-import com.galego.fabricio.vendapp.repository.ProductRepositoryImpl
+import org.koin.android.ext.android.inject
 
 class OrderFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
@@ -30,29 +23,7 @@ class OrderFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     val args: OrderFragmentArgs by navArgs()
 
-    private val viewModel: OrderViewModel by viewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-
-                val orderDao = AppDatabase.getInstance(requireContext()).orderDao
-                val orderProductDao = AppDatabase.getInstance(requireContext()).orderProductDao
-                val customerDao = AppDatabase.getInstance(requireContext()).customerDao
-                val productDao = AppDatabase.getInstance(requireContext()).productDao
-
-                val orderRepository = OrderRepositoryImpl(orderDao)
-                val orderProductRepository = OrderProductRepositoryImpl(orderProductDao)
-                val customerRepository = CustomerRepositoryImpl(customerDao)
-                val productRepository = ProductRepositoryImpl(productDao)
-
-                return OrderViewModel(
-                    orderRepository,
-                    orderProductRepository,
-                    customerRepository,
-                    productRepository
-                ) as T
-            }
-        }
-    }
+    private val viewModel: OrderViewModel by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

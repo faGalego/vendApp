@@ -1,6 +1,5 @@
 package com.galego.fabricio.vendapp.ui.product
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,18 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.galego.fabricio.vendapp.R
 import com.galego.fabricio.vendapp.data.common.Converters
 import com.galego.fabricio.vendapp.data.common.MoneyTextWatcher
-import com.galego.fabricio.vendapp.data.db.AppDatabase
 import com.galego.fabricio.vendapp.databinding.ProductFragmentBinding
 import com.galego.fabricio.vendapp.extension.hideKeyboard
-import com.galego.fabricio.vendapp.repository.ProductRepository
-import com.galego.fabricio.vendapp.repository.ProductRepositoryImpl
+import org.koin.android.ext.android.inject
 
 class ProductFragment : Fragment() {
 
@@ -28,17 +22,7 @@ class ProductFragment : Fragment() {
 
     val args: ProductFragmentArgs by navArgs()
 
-    private val viewModel: ProductViewModel by viewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-
-                val productDao = AppDatabase.getInstance(requireContext()).productDao
-                val productRepository: ProductRepository = ProductRepositoryImpl(productDao)
-
-                return ProductViewModel(productRepository) as T
-            }
-        }
-    }
+    private val viewModel: ProductViewModel by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

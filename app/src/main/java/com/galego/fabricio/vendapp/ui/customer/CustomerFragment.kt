@@ -7,15 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.galego.fabricio.vendapp.data.db.AppDatabase
 import com.galego.fabricio.vendapp.databinding.CustomerFragmentBinding
 import com.galego.fabricio.vendapp.extension.hideKeyboard
-import com.galego.fabricio.vendapp.repository.CustomerRepositoryImpl
+import org.koin.android.ext.android.inject
 import java.util.*
 
 class CustomerFragment : Fragment() {
@@ -25,15 +21,7 @@ class CustomerFragment : Fragment() {
 
     val args: CustomerFragmentArgs by navArgs()
 
-    private val viewModel: CustomerViewModel by viewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                val dao = AppDatabase.getInstance(requireContext()).customerDao
-                val repository = CustomerRepositoryImpl(dao)
-                return CustomerViewModel(repository) as T
-            }
-        }
-    }
+    private val viewModel: CustomerViewModel by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
