@@ -10,14 +10,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.galego.fabricio.vendapp.R
 import com.galego.fabricio.vendapp.data.common.Converters
 import com.galego.fabricio.vendapp.data.db.entity.OrderProductEntity
+import com.galego.fabricio.vendapp.data.db.wrapper.OrderProduct
 
 class OrderProductAdapter(
-    private val products: List<OrderProductEntity>
+    private val products: List<OrderProduct>
 ) : RecyclerView.Adapter<OrderProductAdapter.OrderProductViewHolder>() {
 
-    var onDeleteClick: ((orderProduct: OrderProductEntity) -> Unit)? = null
-    var onOneMoreClick: ((orderProduct: OrderProductEntity) -> Unit)? = null
-    var onOneLessClick: ((orderProduct: OrderProductEntity) -> Unit)? = null
+    var onDeleteClick: ((orderProduct: OrderProduct) -> Unit)? = null
+    var onOneMoreClick: ((orderProduct: OrderProduct) -> Unit)? = null
+    var onOneLessClick: ((orderProduct: OrderProduct) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderProductViewHolder {
         val view =
@@ -46,12 +47,12 @@ class OrderProductAdapter(
             itemView.findViewById<Button>(R.id.order_product_one_less_button)
 
 
-        fun bind(product: OrderProductEntity) {
+        fun bind(product: OrderProduct) {
 
-            textName.text = product.productId.toString()
-            textQuantity.text = product.quantity.toString()
-            textPrice.text = Converters.doubleToMoneyString(product.price)
-            textTotal.text = Converters.doubleToMoneyString(product.total)
+            textName.text = product.product!!.name
+            textQuantity.text = product.entity!!.quantity.toString()
+            textPrice.text = Converters.doubleToMoneyString(product.entity!!.price)
+            textTotal.text = Converters.doubleToMoneyString(product.entity!!.total)
 
             deleteImg.setOnClickListener { onDeleteClick?.invoke(product) }
             oneMoreButton.setOnClickListener { onOneMoreClick?.invoke(product) }

@@ -1,6 +1,7 @@
 package com.galego.fabricio.vendapp.repository
 
 import com.galego.fabricio.vendapp.data.db.entity.OrderProductEntity
+import com.galego.fabricio.vendapp.data.db.wrapper.OrderProduct
 
 interface OrderProductRepository {
 
@@ -10,5 +11,5 @@ interface OrderProductRepository {
 
     suspend fun delete(id: Long)
 
-    suspend fun getByOrderId(orderId: Long): List<OrderProductEntity>
+    suspend fun getByOrderId(orderId: Long): List<OrderProduct>
 }

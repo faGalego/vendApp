@@ -6,6 +6,7 @@ import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
 import androidx.room.Update
 import com.galego.fabricio.vendapp.data.db.entity.OrderProductEntity
+import com.galego.fabricio.vendapp.data.db.wrapper.OrderProduct
 
 @Dao
 interface OrderProductDao {
@@ -20,5 +21,5 @@ interface OrderProductDao {
     suspend fun delete(id: Long)
 
     @Query("SELECT * FROM order_product WHERE orderId = :orderId")
-    suspend fun getByOrderId(orderId: Long): List<OrderProductEntity>
+    suspend fun getByOrderId(orderId: Long): List<OrderProduct>
 }

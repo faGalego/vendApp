@@ -2,6 +2,7 @@ package com.galego.fabricio.vendapp.repository
 
 import com.galego.fabricio.vendapp.data.db.dao.OrderProductDao
 import com.galego.fabricio.vendapp.data.db.entity.OrderProductEntity
+import com.galego.fabricio.vendapp.data.db.wrapper.OrderProduct
 
 class OrderProductRepositoryImpl(
     private val orderProductDao: OrderProductDao
@@ -19,7 +20,7 @@ class OrderProductRepositoryImpl(
         orderProductDao.delete(id)
     }
 
-    override suspend fun getByOrderId(orderId: Long): List<OrderProductEntity> {
+    override suspend fun getByOrderId(orderId: Long): List<OrderProduct> {
         return orderProductDao.getByOrderId(orderId)
     }
 }

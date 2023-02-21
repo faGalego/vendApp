@@ -9,6 +9,7 @@ import com.galego.fabricio.vendapp.R
 import com.galego.fabricio.vendapp.data.db.entity.CustomerEntity
 import com.galego.fabricio.vendapp.data.db.entity.OrderProductEntity
 import com.galego.fabricio.vendapp.data.db.entity.ProductEntity
+import com.galego.fabricio.vendapp.data.db.wrapper.OrderProduct
 import com.galego.fabricio.vendapp.repository.CustomerRepository
 import com.galego.fabricio.vendapp.repository.OrderProductRepository
 import com.galego.fabricio.vendapp.repository.OrderRepository
@@ -30,8 +31,8 @@ class OrderViewModel(
     private val _orderMessageEventData = MutableLiveData<Int>()
     val orderMessageEventData: LiveData<Int> get() = _orderMessageEventData
 
-    private val _productsData = MutableLiveData<MutableList<OrderProductEntity>>()
-    val productsData: LiveData<MutableList<OrderProductEntity>> get() = _productsData
+    private val _productsData = MutableLiveData<MutableList<OrderProduct>>()
+    val productsData: LiveData<MutableList<OrderProduct>> get() = _productsData
 
     private val _allCustomersEventData = MutableLiveData<List<CustomerEntity>>()
     val allCustomersEventData: LiveData<List<CustomerEntity>> get() = _allCustomersEventData
@@ -59,12 +60,14 @@ class OrderViewModel(
     }
 
     private fun addProductToList(product: ProductEntity) {
-        val orderProduct = OrderProductEntity(
+        val entity = OrderProductEntity(
             productId = product.id,
             quantity = 1,
             price = product.price,
             total = product.price * 1
         )
+
+        val orderProduct = OrderProduct(entity = entity, product = product)
 
         if (_productsData.value == null) {
             _productsData.value = mutableListOf()
@@ -73,32 +76,34 @@ class OrderViewModel(
         _productsData.postValue(_productsData.value)
     }
 
-    fun removeProduct(product: OrderProductEntity) {
-        if (product.id > 0) {
-            _orderProductsToDelete.add(product.id)
+    fun removeProduct(product: OrderProduct) {
+        if (product.entity!!.id > 0) {
+            _orderProductsToDelete.add(product.entity!!.id)
         }
         _productsData.value?.remove(product)
         _productsData.postValue(_productsData.value)
     }
 
-    fun oneMore(product: OrderProductEntity) {
+    fun oneMore(product: OrderProduct) {
         val currentList = _productsData.value ?: return
         val existingProduct = currentList.find { it == product }
 
         if (existingProduct != null) {
-            existingProduct.quantity += 1
-            existingProduct.total = existingProduct.quantity * existingProduct.price
+            existingProduct.entity!!.quantity += 1
+            existingProduct.entity!!.total =
+                existingProduct.entity!!.quantity * existingProduct.entity!!.price
             _productsData.postValue(currentList)
         }
     }
 
-    fun oneLess(product: OrderProductEntity) {
+    fun oneLess(product: OrderProduct) {
         val currentList = _productsData.value ?: return
         val existingProduct = currentList.find { it == product }
 
-        if (existingProduct != null && existingProduct.quantity > 1) {
-            existingProduct.quantity -= 1
-            existingProduct.total = existingProduct.quantity * existingProduct.price
+        if (existingProduct != null && existingProduct.entity!!.quantity > 1) {
+            existingProduct.entity!!.quantity -= 1
+            existingProduct.entity!!.total =
+                existingProduct.entity!!.quantity * existingProduct.entity!!.price
             _productsData.postValue(currentList)
         }
     }
@@ -162,11 +167,11 @@ class OrderViewModel(
 
     private fun saveProductsOnDb(orderId: Long) {
         _productsData.value!!.forEach { item ->
-            item.orderId = orderId
-            if (item.id > 0) {
-                updateProduct(item)
+            item.entity!!.orderId = orderId
+            if (item.entity!!.id > 0) {
+                updateProduct(item.entity!!)
             } else {
-                insertProduct(item)
+                insertProduct(item.entity!!)
             }
         }
         _orderProductsToDelete.forEach { id ->
@@ -187,7 +192,7 @@ class OrderViewModel(
     }
 
     private fun getOrderTotal(): Double {
-        return _productsData.value!!.toList().sumOf { it.total };
+        return _productsData.value!!.toList().sumOf { it.entity!!.total };
     }
 
     sealed class OrderState {
