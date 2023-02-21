@@ -67,7 +67,7 @@
     <!-- Order Fragment -->
     <string name="order_title">Pedido</string>
     <string name="order_customer_hint">Cliente</string>
-    <string name="order_product_hint">Produto</string>
+    <string name="order_product_hint">Código do produto</string>
     <string name="order_total_hint">Total</string>
     <string name="order_add_product_button">Adicionar</string>
     <string name="order_save_button">Salvar</string>
