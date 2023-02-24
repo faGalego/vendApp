@@ -40,7 +40,7 @@ class OrderListAdapter(
 
             textId.text = "#${order.orderId}"
             textCustomer.text = order.customerName
-            textCreatedAt.text = SimpleDateFormat("dd/mm/yyyy").format(order.createdAt)
+            textCreatedAt.text = SimpleDateFormat("dd/MM/yyyy").format(order.createdAt)
             textTotal.text = Converters.doubleToMoneyString(order.orderTotal)
             itemView.setOnClickListener {
                 onItemClick?.invoke(order)
