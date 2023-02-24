@@ -14,21 +14,15 @@ import com.galego.fabricio.vendapp.data.db.AppDatabase
 import com.galego.fabricio.vendapp.databinding.OrderListFragmentBinding
 import com.galego.fabricio.vendapp.repository.OrderCustomerRepositoryImpl
 import com.galego.fabricio.vendapp.repository.OrderRepositoryImpl
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class OrderListFragment : Fragment() {
 
     private var _binding: OrderListFragmentBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: OrderListViewModel by viewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                val dao = AppDatabase.getInstance(requireContext()).orderCustomerDao
-                val repository = OrderCustomerRepositoryImpl(dao)
-                return OrderListViewModel(repository) as T
-            }
-        }
-    }
+    private val viewModel: OrderListViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -16,8 +16,10 @@ import com.galego.fabricio.vendapp.data.db.AppDatabase
 import com.galego.fabricio.vendapp.databinding.CustomerFragmentBinding
 import com.galego.fabricio.vendapp.extension.hideKeyboard
 import com.galego.fabricio.vendapp.repository.CustomerRepositoryImpl
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
+@AndroidEntryPoint
 class CustomerFragment : Fragment() {
 
     private var _binding: CustomerFragmentBinding? = null
@@ -25,15 +27,7 @@ class CustomerFragment : Fragment() {
 
     val args: CustomerFragmentArgs by navArgs()
 
-    private val viewModel: CustomerViewModel by viewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                val dao = AppDatabase.getInstance(requireContext()).customerDao
-                val repository = CustomerRepositoryImpl(dao)
-                return CustomerViewModel(repository) as T
-            }
-        }
-    }
+    private val viewModel: CustomerViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

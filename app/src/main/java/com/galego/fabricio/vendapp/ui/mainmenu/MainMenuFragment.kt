@@ -25,33 +25,15 @@ import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainMenuFragment : Fragment() {
 
     private var _binding: FragmentMainMenuBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: MainMenuViewModel by viewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-
-                val orderDao = AppDatabase.getInstance(requireContext()).orderDao
-                val orderRepository = OrderRepositoryImpl(orderDao)
-
-                val productDao = AppDatabase.getInstance(requireContext()).productDao
-                val productRepository = ProductRepositoryImpl(productDao)
-
-                val customerDao = AppDatabase.getInstance(requireContext()).customerDao
-                val customerRepository = CustomerRepositoryImpl(customerDao)
-
-                return MainMenuViewModel(
-                    orderRepository,
-                    productRepository,
-                    customerRepository
-                ) as T
-            }
-        }
-    }
+    private val viewModel: MainMenuViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

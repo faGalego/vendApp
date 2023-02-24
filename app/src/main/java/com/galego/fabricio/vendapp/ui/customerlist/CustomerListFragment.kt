@@ -13,21 +13,15 @@ import com.galego.fabricio.vendapp.R
 import com.galego.fabricio.vendapp.data.db.AppDatabase
 import com.galego.fabricio.vendapp.databinding.CustomerListFragmentBinding
 import com.galego.fabricio.vendapp.repository.CustomerRepositoryImpl
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class CustomerListFragment : Fragment() {
 
     private var _binding: CustomerListFragmentBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: CustomerListViewModel by viewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                val dao = AppDatabase.getInstance(requireContext()).customerDao
-                val repository = CustomerRepositoryImpl(dao)
-                return CustomerListViewModel(repository) as T
-            }
-        }
-    }
+    private val viewModel: CustomerListViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

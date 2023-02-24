@@ -7,11 +7,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.galego.fabricio.vendapp.R
 import com.galego.fabricio.vendapp.repository.CustomerRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.lang.Exception
 import java.util.*
+import javax.inject.Inject
 
-class CustomerViewModel(
+@HiltViewModel
+class CustomerViewModel @Inject constructor(
     private val customerRepository: CustomerRepository
 ) : ViewModel() {
 

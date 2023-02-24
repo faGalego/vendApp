@@ -22,7 +22,9 @@ import com.galego.fabricio.vendapp.repository.CustomerRepositoryImpl
 import com.galego.fabricio.vendapp.repository.OrderProductRepositoryImpl
 import com.galego.fabricio.vendapp.repository.OrderRepositoryImpl
 import com.galego.fabricio.vendapp.repository.ProductRepositoryImpl
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class OrderFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     private var _binding: OrderFragmentBinding? = null
@@ -30,29 +32,7 @@ class OrderFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     val args: OrderFragmentArgs by navArgs()
 
-    private val viewModel: OrderViewModel by viewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-
-                val orderDao = AppDatabase.getInstance(requireContext()).orderDao
-                val orderProductDao = AppDatabase.getInstance(requireContext()).orderProductDao
-                val customerDao = AppDatabase.getInstance(requireContext()).customerDao
-                val productDao = AppDatabase.getInstance(requireContext()).productDao
-
-                val orderRepository = OrderRepositoryImpl(orderDao)
-                val orderProductRepository = OrderProductRepositoryImpl(orderProductDao)
-                val customerRepository = CustomerRepositoryImpl(customerDao)
-                val productRepository = ProductRepositoryImpl(productDao)
-
-                return OrderViewModel(
-                    orderRepository,
-                    orderProductRepository,
-                    customerRepository,
-                    productRepository
-                ) as T
-            }
-        }
-    }
+    private val viewModel: OrderViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

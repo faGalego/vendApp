@@ -7,9 +7,12 @@ import androidx.lifecycle.viewModelScope
 import com.galego.fabricio.vendapp.data.db.wrapper.OrderCustomer
 import com.galego.fabricio.vendapp.repository.OrderCustomerRepository
 import com.galego.fabricio.vendapp.repository.OrderRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class OrderListViewModel(
+@HiltViewModel
+class OrderListViewModel @Inject constructor(
     private val repository: OrderCustomerRepository
 ) : ViewModel() {
 

@@ -14,21 +14,15 @@ import com.galego.fabricio.vendapp.data.db.AppDatabase
 import com.galego.fabricio.vendapp.databinding.ProductListFragmentBinding
 import com.galego.fabricio.vendapp.repository.ProductRepository
 import com.galego.fabricio.vendapp.repository.ProductRepositoryImpl
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ProductListFragment : Fragment() {
 
     private var _binding: ProductListFragmentBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: ProductListViewModel by viewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                val dao = AppDatabase.getInstance(requireContext()).productDao
-                val repository: ProductRepository = ProductRepositoryImpl(dao)
-                return ProductListViewModel(repository) as T
-            }
-        }
-    }
+    private val viewModel: ProductListViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -6,9 +6,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.galego.fabricio.vendapp.data.db.entity.ProductEntity
 import com.galego.fabricio.vendapp.repository.ProductRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ProductListViewModel(
+@HiltViewModel
+class ProductListViewModel @Inject constructor(
     private val repository: ProductRepository
 ) : ViewModel() {
 

@@ -20,7 +20,9 @@ import com.galego.fabricio.vendapp.databinding.ProductFragmentBinding
 import com.galego.fabricio.vendapp.extension.hideKeyboard
 import com.galego.fabricio.vendapp.repository.ProductRepository
 import com.galego.fabricio.vendapp.repository.ProductRepositoryImpl
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ProductFragment : Fragment() {
 
     private var _binding: ProductFragmentBinding? = null
@@ -28,17 +30,7 @@ class ProductFragment : Fragment() {
 
     val args: ProductFragmentArgs by navArgs()
 
-    private val viewModel: ProductViewModel by viewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-
-                val productDao = AppDatabase.getInstance(requireContext()).productDao
-                val productRepository: ProductRepository = ProductRepositoryImpl(productDao)
-
-                return ProductViewModel(productRepository) as T
-            }
-        }
-    }
+    private val viewModel: ProductViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

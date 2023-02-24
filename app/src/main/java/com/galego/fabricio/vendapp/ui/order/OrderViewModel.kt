@@ -14,11 +14,14 @@ import com.galego.fabricio.vendapp.repository.CustomerRepository
 import com.galego.fabricio.vendapp.repository.OrderProductRepository
 import com.galego.fabricio.vendapp.repository.OrderRepository
 import com.galego.fabricio.vendapp.repository.ProductRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.lang.Exception
 import java.util.*
+import javax.inject.Inject
 
-class OrderViewModel(
+@HiltViewModel
+class OrderViewModel @Inject constructor(
     private val orderRepository: OrderRepository,
     private val orderProductRepository: OrderProductRepository,
     private val customerRepository: CustomerRepository,

@@ -1,6 +1,5 @@
 package com.galego.fabricio.vendapp.ui.mainmenu
 
-import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,10 +11,13 @@ import com.galego.fabricio.vendapp.data.db.wrapper.MonthWithTotal
 import com.galego.fabricio.vendapp.repository.CustomerRepository
 import com.galego.fabricio.vendapp.repository.OrderRepository
 import com.galego.fabricio.vendapp.repository.ProductRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.util.*
+import javax.inject.Inject
 
-class MainMenuViewModel(
+@HiltViewModel
+class MainMenuViewModel @Inject constructor(
     private val orderRepository: OrderRepository,
     private val productRepository: ProductRepository,
     private val customerRepository: CustomerRepository
