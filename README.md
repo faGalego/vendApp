@@ -5,6 +5,9 @@ This is an android app developed using Kotlin.
 It was created with the aim of helping me to practice and apply my knowledge in a functional application.
 The app allows users to register products, customers and orders, and visualize these data in graphs.
 
+### Screenshots
+![screenshots](resources/screenshots.png)
+
 ### Architecture
 By using clean architecture concepts, the data flow has been organized into the following layers:
 - **UI:** responsible for displaying data to the user and handling user interactions. It is where are the Activities and Fragments.
