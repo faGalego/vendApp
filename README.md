@@ -30,6 +30,9 @@ Foreing Keys were used in the room entities for data integrity, query optimizati
 ### Navigation 
 Jetpack's Navigation library was used to structure the navigation between the app’s screens, making it easier to manage and maintain, and keeping a complete view of the flow of the screens.
  
+
+![navigation](resources/navigation.png)
+ 
 ### Data Binding
  Data Binding was used instead of FindViewById to control the app's visual components, as it is more secure and easier to maintain because it checks for UI elements during compilation rather than just during execution, which helps to avoid errors for the end user.
 
