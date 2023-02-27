@@ -166,7 +166,7 @@ class MainMenuFragment : Fragment() {
             }
         }
         set1.setDrawValues(true)
-//        set1.color = Color.rgb(165, 214, 167)
+        set1.color = Color.rgb(165, 214, 167)
 
         if ((monthsAndTotals.filter { it!!.total < 0 }).isEmpty()) {
             binding.fragmentMainmenuOrdersChart.axisLeft.axisMinimum = 0f; // start at zero
