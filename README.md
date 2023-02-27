@@ -36,6 +36,15 @@ Jetpack's Navigation library was used to structure the navigation between the ap
 ### Data Binding
  Data Binding was used instead of FindViewById to control the app's visual components, as it is more secure and easier to maintain because it checks for UI elements during compilation rather than just during execution, which helps to avoid errors for the end user.
 
+### Dependency Injection
+The project was developed using dependency injection (DI) to create the app's architecture considering advantages such as code reuse, ease of refactoring and the intent of implementing unit tests.
+
+##### Koin
+A [branch](https://github.com/faGalego/vendApp/tree/koin) was created where dependency injection was implemented using Koin. I decided to implement Koin because it is a library that stands out for its simplicity of learning and implementation.
+
+##### Hilt 
+Another [branch](https://github.com/faGalego/vendApp/tree/hilt) for implementing DI using Hilt was also created. Later this branch was merged with the main branch. I decided to use Hilt because it is the DI library developed and recommended by Google, and also because it does the injection at compile time which optimizes the performance in the runtime.
+
 ### Contact
 If you have any suggestions or questions, feel free to contact me on [LinkedIn].
 
