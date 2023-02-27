@@ -15,7 +15,8 @@ interface OrderCustomerDao {
             `order`.total AS orderTotal,
             `order`.createdAt
         FROM `order`
-        INNER JOIN customer ON customer.id = `order`.customerId"""
+        INNER JOIN customer ON customer.id = `order`.customerId
+        ORDER BY `order`.id DESC"""
     )
     suspend fun getAll(): List<OrderCustomer>
 
