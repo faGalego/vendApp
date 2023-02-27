@@ -18,7 +18,7 @@ interface CustomerDao {
     @Query("DELETE FROM customer WHERE id = :id")
     suspend fun delete(id: Long)
 
-    @Query("SELECT * FROM customer")
+    @Query("SELECT * FROM customer ORDER BY name")
     suspend fun getAll(): List<CustomerEntity>
 
     @Query("SELECT COUNT(id) FROM customer")
