@@ -111,7 +111,11 @@ class OrderFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         binding.fragmentOrderAddProductButton.setOnClickListener {
 
-            viewModel.insertProduct(binding.fragmentOrderProductEditText.text.toString().toLong())
+            if (binding.fragmentOrderProductEditText.text?.isNotEmpty() == true) {
+                viewModel.insertProduct(
+                    binding.fragmentOrderProductEditText.text.toString().toLong()
+                )
+            }
         }
 
         binding.fragmentOrderSaveButton.setOnClickListener {
